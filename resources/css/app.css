@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-ivory text-graphite;
+}
+
+.section-title {
+    @apply font-display text-3xl text-midnight-900;
+}
+
+.card-glow {
+    background: radial-gradient(circle at top, rgba(201, 168, 106, 0.25), rgba(255, 255, 255, 0.95));
+}
+
+.disclaimer-text {
+    @apply text-xs text-midnight-600 leading-relaxed;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(11, 28, 44, 0.35);
+    border-radius: 999px;
+}
