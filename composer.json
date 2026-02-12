@@ -10,12 +10,16 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.3",
         "awcodes/filament-tiptap-editor": "^3.5",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.0",
         "laravel/framework": "^10.0",
+        "laravel/horizon": "*",
         "laravel/tinker": "^2.8",
+        "sentry/sentry-laravel": "*",
+        "spatie/image-optimizer": "*",
+        "spatie/laravel-image-optimizer": "*",
         "spatie/laravel-medialibrary": "^11.9",
         "spatie/laravel-permission": "^6.9"
     },
@@ -23,6 +27,7 @@
         "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.10",
         "laravel/sail": "^1.26",
+        "laravel/telescope": "^5.17",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^7.10",
         "phpunit/phpunit": "^10.0"

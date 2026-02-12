@@ -22,9 +22,12 @@
     <meta name="description" content="{{ $metaDescription }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="/images/natural-gem-logo.svg" type="image/svg+xml">
+    <link rel="dns-prefetch" href="//static.cloudflareinsights.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    @stack('preload')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>

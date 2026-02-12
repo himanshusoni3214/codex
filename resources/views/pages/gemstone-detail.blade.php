@@ -29,7 +29,14 @@
         </div>
         <div class="bg-white rounded-3xl p-10 shadow-lux border border-platinum">
             <div class="bg-ivory rounded-2xl p-10">
-                <img src="{{ $gemstone->image ?? '/images/gemstones/emerald.svg' }}" alt="{{ $gemstone->title }}" class="h-48 w-full max-w-[75%] mx-auto object-contain" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/images/gemstones/emerald.svg';">
+                <x-responsive-image
+                    :model="$gemstone"
+                    :src="$gemstone->image"
+                    :alt="$gemstone->title"
+                    class="h-48 w-full max-w-[75%] mx-auto object-contain"
+                    width="640"
+                    height="480"
+                />
             </div>
             <div class="mt-6 text-sm text-midnight-600">
                 <p><strong>SKU:</strong> {{ $gemstone->sku ?? '—' }}</p>

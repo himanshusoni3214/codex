@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class GemstonePiece extends Model implements HasMedia
 {
@@ -79,6 +80,16 @@ class GemstonePiece extends Model implements HasMedia
     {
         $this->addMediaCollection('certificates');
         $this->addMediaCollection('photos');
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('webp')
+            ->format('webp')
+            ->quality(85)
+            ->optimize()
+            ->performOnCollections('photos');
     }
 
     public function setMetadataAttribute($value): void
