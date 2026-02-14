@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -39,10 +40,13 @@ class Product extends Model implements HasMedia
         'gem_type',
         'treatment',
         'treatment_disclosure',
+        'treatment_text',
         'certificate_lab',
         'certificate_number',
         'certificate_url',
+        'certification_text',
         'origin',
+        'origin_text',
         'carat',
         'color',
         'clarity',
@@ -106,6 +110,21 @@ class Product extends Model implements HasMedia
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function gemstoneTypes(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            GemstoneType::class,
+            'product_gemstone_type',
+            'product_id',
+            'gemstone_type_id'
+        );
+    }
+
+    public function origins(): BelongsToMany
+    {
+        return $this->belongsToMany(Origin::class);
     }
 
     public function certifications(): BelongsToMany
@@ -178,5 +197,92 @@ class Product extends Model implements HasMedia
         }
 
         return null;
+    }
+
+    public function getPrimaryGemstoneTypeAttribute(): ?GemstoneType
+    {
+        return $this->relationLoaded('gemstoneTypes')
+            ? $this->gemstoneTypes->first()
+            : $this->gemstoneTypes()->first();
+    }
+
+    public function getPrimaryOriginAttribute(): ?Origin
+    {
+        return $this->relationLoaded('origins')
+            ? $this->origins->first()
+            : $this->origins()->first();
+    }
+
+    public function getPrimaryTypeSlugAttribute(): ?string
+    {
+        $type = $this->primary_gemstone_type;
+        if ($type?->slug) {
+            return $type->slug;
+        }
+
+        if ($this->gem_type) {
+            return Str::slug($this->gem_type);
+        }
+
+        return null;
+    }
+
+    public function getSeoSlugAttribute(): string
+    {
+        $baseSlug = trim((string) $this->slug);
+        if ($baseSlug === '') {
+            $baseSlug = Str::slug($this->title ?: 'gemstone');
+        }
+
+        $skuSlug = Str::slug((string) $this->sku);
+        if ($skuSlug === '') {
+            return $baseSlug;
+        }
+
+        $lowerBase = Str::lower($baseSlug);
+        $hasSkuSuffix = Str::endsWith($lowerBase, '-' . $skuSlug) || $lowerBase === $skuSlug;
+
+        return $hasSkuSuffix ? $baseSlug : "{$baseSlug}-{$skuSlug}";
+    }
+
+    public function detailPath(?string $typeSlug = null): string
+    {
+        $resolvedTypeSlug = $typeSlug ?: $this->primary_type_slug;
+        $productSlug = $this->seo_slug;
+
+        if ($resolvedTypeSlug) {
+            return "/gemstones/{$resolvedTypeSlug}/{$productSlug}";
+        }
+
+        return "/gemstones/{$productSlug}";
+    }
+
+    public function getSeoImageAltAttribute(): string
+    {
+        $parts = [];
+
+        if ($this->certificate_lab) {
+            $parts[] = 'Certified';
+        }
+
+        if ($this->origin) {
+            $parts[] = $this->origin;
+        }
+
+        if ($this->gem_type) {
+            $parts[] = $this->gem_type;
+        }
+
+        if ($this->carat) {
+            $parts[] = number_format((float) $this->carat, 2) . ' CT';
+        } elseif ($this->weight_per_piece) {
+            $parts[] = number_format((float) $this->weight_per_piece, 2) . ' CT';
+        }
+
+        if ($parts === []) {
+            return trim(($this->title ?: 'Natural Gem') . ' gemstone');
+        }
+
+        return implode(' ', $parts);
     }
 }

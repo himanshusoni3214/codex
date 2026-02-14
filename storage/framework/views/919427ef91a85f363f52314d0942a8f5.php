@@ -6,23 +6,40 @@
     <?php
         $page = $page ?? null;
         $gemstone = $gemstone ?? null;
-
-        $metaTitle = optional($page)->meta_title
-            ?? optional($page)->title
-            ?? optional($gemstone)->meta_title
-            ?? optional($gemstone)->title
-            ?? ($settings['site_name'] ?? 'Natural Gem');
-
-        $metaDescription = optional($page)->meta_description
-            ?? optional($gemstone)->meta_description
-            ?? optional($gemstone)->short_description
-            ?? 'Certified natural gemstones with transparent sourcing and documentation.';
+        $type = $type ?? null;
+        $origin = $origin ?? null;
+        $resolvedPaginator = $paginator ?? null;
+        if (!$resolvedPaginator && isset($gemstones) && $gemstones instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator) {
+            $resolvedPaginator = $gemstones;
+        }
+        $seoMeta = $seoMeta ?? app(\App\Services\SeoMetaService::class)->resolve([
+            'page' => $page,
+            'gemstone' => $gemstone,
+            'type' => $type,
+            'origin' => $origin,
+            'settings' => $settings ?? [],
+            'canonical' => $canonical ?? null,
+            'paginator' => $resolvedPaginator,
+            'force_noindex' => $forceNoindex ?? false,
+            'indexable' => $isIndexable ?? null,
+        ]);
+        $structuredData = $structuredData ?? app(\App\Services\StructuredDataService::class)->build([
+            'page' => $page,
+            'gemstone' => $gemstone,
+            'type' => $type,
+            'origin' => $origin,
+            'settings' => $settings ?? [],
+            'faqItems' => $faqItems ?? [],
+            'breadcrumbs' => $breadcrumbs ?? [],
+            'includeLocalBusiness' => $includeLocalBusiness ?? false,
+        ]);
     ?>
-    <title><?php echo e($metaTitle); ?></title>
-    <meta name="description" content="<?php echo e($metaDescription); ?>">
+    <?php echo $__env->make('partials.structured-data', ['structuredData' => $structuredData], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php echo $__env->make('partials.seo-meta', ['seoMeta' => $seoMeta], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <link rel="icon" href="/images/natural-gem-logo.svg" type="image/svg+xml">
     <link rel="dns-prefetch" href="//static.cloudflareinsights.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap">

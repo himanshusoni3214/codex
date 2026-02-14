@@ -27,7 +27,7 @@
             <h4 class="font-semibold text-gold-200 mb-3">Featured Gemstones</h4>
             <ul class="space-y-2 text-sm text-white/80">
                 @foreach($navGemstones as $gemstone)
-                    <li><a href="{{ route('gemstones.show', $gemstone) }}" class="hover:text-white">{{ $gemstone->title }}</a></li>
+                    <li><a href="{{ $gemstone->detailPath() }}" class="hover:text-white">{{ $gemstone->title }}</a></li>
                 @endforeach
             </ul>
         </div>

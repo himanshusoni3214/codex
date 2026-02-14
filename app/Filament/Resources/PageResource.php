@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PageResource\Pages;
 use App\Models\Page;
-use FilamentTiptapEditor\TiptapEditor;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -24,6 +23,10 @@ class PageResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $contentEditor = class_exists(\Awcodes\FilamentTiptapEditor\TiptapEditor::class)
+            ? \Awcodes\FilamentTiptapEditor\TiptapEditor::make('content')
+            : Forms\Components\RichEditor::make('content');
+
         return $form
             ->schema([
                 Forms\Components\TextInput::make('slug')
@@ -47,8 +50,7 @@ class PageResource extends Resource
                         'draft' => 'Draft',
                     ])
                     ->default('published'),
-                TiptapEditor::make('content')
-                    ->columnSpanFull(),
+                $contentEditor->columnSpanFull(),
                 Forms\Components\TextInput::make('meta_title')->maxLength(255),
                 Forms\Components\Textarea::make('meta_description')->maxLength(255),
                 Forms\Components\TextInput::make('og_image')->maxLength(255),

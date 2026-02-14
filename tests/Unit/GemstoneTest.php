@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Gemstone;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class GemstoneTest extends TestCase
 {

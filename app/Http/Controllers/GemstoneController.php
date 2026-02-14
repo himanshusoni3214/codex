@@ -12,8 +12,15 @@ class GemstoneController extends Controller
     {
         return view('pages.gemstones', [
             'page' => $pages->getBySlug('gemstones'),
-            'gemstones' => $gemstones->all(),
+            'gemstones' => $gemstones->paginateAvailable(),
             'categories' => $gemstones->categories(),
+            'gemstoneTypes' => $gemstones->availableTypes(),
+            'origins' => $gemstones->availableOrigins(),
+            'originGroups' => $gemstones->availableOriginsGroupedByType(),
+            'breadcrumbs' => [
+                ['label' => 'Home', 'url' => route('home')],
+                ['label' => 'Gemstones', 'url' => route('gemstones')],
+            ],
         ]);
     }
 

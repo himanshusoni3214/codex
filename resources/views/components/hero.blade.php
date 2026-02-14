@@ -2,8 +2,15 @@
     'title',
     'subtitle' => null,
     'cta' => null,
-    'image' => '/images/hero-gem.svg'
+    'image' => '/images/hero-gem.svg',
+    'imageAlt' => 'Certified gemstone',
 ])
+
+@once
+    @push('preload')
+        <link rel="preload" as="image" href="{{ $image }}" fetchpriority="high">
+    @endpush
+@endonce
 
 <section class="bg-gemstone-glow relative overflow-hidden">
     <div class="absolute inset-0 bg-subtle-grid opacity-50"></div>
@@ -24,7 +31,16 @@
         <div class="relative">
             <div class="absolute -top-8 -left-8 w-24 h-24 rounded-full bg-gold-200 blur-2xl opacity-70"></div>
             <div class="bg-white/90 shadow-lux rounded-3xl p-8 border border-platinum">
-                <img src="{{ $image }}" alt="Certified Gemstone" class="w-full h-64 object-cover rounded-2xl" loading="lazy" decoding="async">
+                <img
+                    src="{{ $image }}"
+                    alt="{{ $imageAlt }}"
+                    class="w-full h-64 object-cover rounded-2xl"
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                    width="960"
+                    height="640"
+                >
                 <div class="mt-6 grid grid-cols-2 gap-4 text-sm">
                     <div class="bg-ivory px-4 py-3 rounded-xl">
                         <p class="text-emerald-700 font-semibold">Certified</p>

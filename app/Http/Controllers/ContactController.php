@@ -10,7 +10,10 @@ class ContactController extends Controller
 {
     public function show(PageRepository $pages)
     {
-        return view('pages.contact', ['page' => $pages->getBySlug('contact')]);
+        return view('pages.contact', [
+            'page' => $pages->getBySlug('contact'),
+            'includeLocalBusiness' => true,
+        ]);
     }
 
     public function store(ContactRequest $request)

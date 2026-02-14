@@ -40,6 +40,7 @@
     $fallback = $src ?? '/images/gemstones/emerald.svg';
     $webp = null;
     $original = $fallback;
+    $resolvedAlt = trim((string) $alt);
 
     if ($model && method_exists($model, 'hasMedia') && $model->hasMedia('images')) {
         $media = $model->getFirstMedia('images');
@@ -47,6 +48,10 @@
             $original = $media->getUrl();
             $webp = $media->hasGeneratedConversion('webp') ? $media->getUrl('webp') : null;
         }
+    }
+
+    if ($resolvedAlt === '') {
+        $resolvedAlt = trim((string) ($model->seo_image_alt ?? $model->title ?? $model->name ?? 'Natural gemstone image'));
     }
 ?>
 
@@ -56,7 +61,7 @@
     <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
     <img
         src="<?php echo e($original); ?>"
-        alt="<?php echo e($alt); ?>"
+        alt="<?php echo e($resolvedAlt); ?>"
         class="<?php echo e($class); ?>"
         loading="<?php echo e($loading); ?>"
         decoding="async"

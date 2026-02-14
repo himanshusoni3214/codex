@@ -79,6 +79,18 @@ class ProductResource extends Resource
                                     ->multiple()
                                     ->searchable()
                                     ->preload(),
+                                Forms\Components\Select::make('gemstoneTypes')
+                                    ->relationship('gemstoneTypes', 'name')
+                                    ->multiple()
+                                    ->searchable()
+                                    ->preload()
+                                    ->label('Gemstone Types'),
+                                Forms\Components\Select::make('origins')
+                                    ->relationship('origins', 'name')
+                                    ->multiple()
+                                    ->searchable()
+                                    ->preload()
+                                    ->label('Origins'),
                                 Forms\Components\Toggle::make('is_featured')
                                     ->label('Featured'),
                                 $descriptionEditor
@@ -112,6 +124,9 @@ class ProductResource extends Resource
                                 Forms\Components\TextInput::make('cut')->maxLength(255),
                                 Forms\Components\TextInput::make('shape')->maxLength(255),
                                 Forms\Components\TextInput::make('origin')->maxLength(255),
+                                Forms\Components\Textarea::make('origin_text')
+                                    ->label('Origin Disclosure')
+                                    ->columnSpanFull(),
                             ])->columns(2),
                         Forms\Components\Tabs\Tab::make('Certification & Treatment')
                             ->schema([
@@ -119,9 +134,15 @@ class ProductResource extends Resource
                                 $treatmentEditor
                                     ->label('Treatment Disclosure')
                                     ->columnSpanFull(),
+                                Forms\Components\Textarea::make('treatment_text')
+                                    ->label('Treatment Notes')
+                                    ->columnSpanFull(),
                                 Forms\Components\TextInput::make('certificate_lab')->maxLength(255),
                                 Forms\Components\TextInput::make('certificate_number')->maxLength(255),
                                 Forms\Components\TextInput::make('certificate_url')->maxLength(255),
+                                Forms\Components\Textarea::make('certification_text')
+                                    ->label('Certification Notes')
+                                    ->columnSpanFull(),
                                 Forms\Components\Select::make('certifications')
                                     ->relationship('certifications', 'name')
                                     ->multiple()
@@ -202,6 +223,12 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Category')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('gemstoneTypes.name')
+                    ->label('Gemstone Type')
+                    ->badge(),
+                Tables\Columns\TextColumn::make('origins.name')
+                    ->label('Origin')
+                    ->badge(),
                 Tables\Columns\TextColumn::make('price_cad')
                     ->label('CAD Price')
                     ->money('CAD')

@@ -5,7 +5,7 @@
         <x-responsive-image
             :model="$gemstone"
             :src="$gemstone->image"
-            :alt="$gemstone->title"
+            :alt="$gemstone->seo_image_alt"
             class="max-h-24 max-w-[70%] object-contain"
             width="320"
             height="220"
@@ -26,7 +26,7 @@
             <span class="ml-2">Available: {{ $gemstone->available_quantity }}</span>
         </div>
         <div class="mt-4">
-            <x-button href="{{ route('gemstones.show', $gemstone) }}" variant="outline">View Details</x-button>
+            <x-button href="{{ $gemstone->detailPath() }}" variant="outline">View Details</x-button>
         </div>
     </div>
 </div>

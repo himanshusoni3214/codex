@@ -4,6 +4,8 @@ namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\EncryptCookies;
+use App\Http\Middleware\EnforceCanonicalUrl;
+use App\Http\Middleware\ForceHttps;
 use App\Http\Middleware\HandleCors;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
 use App\Http\Middleware\TrimStrings;
@@ -15,6 +17,8 @@ class Kernel extends HttpKernel
 {
     protected $middleware = [
         TrustProxies::class,
+        ForceHttps::class,
+        EnforceCanonicalUrl::class,
         HandleCors::class,
         PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,

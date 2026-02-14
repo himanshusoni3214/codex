@@ -16,14 +16,14 @@
     <div class="h-44 bg-ivory flex items-center justify-center p-8">
         <?php if (isset($component)) { $__componentOriginalecfc361c64744489ff7ee842d5dc46c3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalecfc361c64744489ff7ee842d5dc46c3 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.responsive-image','data' => ['model' => $gemstone,'src' => $gemstone->image,'alt' => $gemstone->title,'class' => 'max-h-24 max-w-[70%] object-contain','width' => '320','height' => '220']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.responsive-image','data' => ['model' => $gemstone,'src' => $gemstone->image,'alt' => $gemstone->seo_image_alt,'class' => 'max-h-24 max-w-[70%] object-contain','width' => '320','height' => '220']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('responsive-image'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['model' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($gemstone),'src' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($gemstone->image),'alt' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($gemstone->title),'class' => 'max-h-24 max-w-[70%] object-contain','width' => '320','height' => '220']); ?>
+<?php $component->withAttributes(['model' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($gemstone),'src' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($gemstone->image),'alt' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($gemstone->seo_image_alt),'class' => 'max-h-24 max-w-[70%] object-contain','width' => '320','height' => '220']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalecfc361c64744489ff7ee842d5dc46c3)): ?>
@@ -52,14 +52,14 @@
         <div class="mt-4">
             <?php if (isset($component)) { $__componentOriginald0f1fd2689e4bb7060122a5b91fe8561 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald0f1fd2689e4bb7060122a5b91fe8561 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.button','data' => ['href' => ''.e(route('gemstones.show', $gemstone)).'','variant' => 'outline']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.button','data' => ['href' => ''.e($gemstone->detailPath()).'','variant' => 'outline']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['href' => ''.e(route('gemstones.show', $gemstone)).'','variant' => 'outline']); ?>View Details <?php echo $__env->renderComponent(); ?>
+<?php $component->withAttributes(['href' => ''.e($gemstone->detailPath()).'','variant' => 'outline']); ?>View Details <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginald0f1fd2689e4bb7060122a5b91fe8561)): ?>
 <?php $attributes = $__attributesOriginald0f1fd2689e4bb7060122a5b91fe8561; ?>

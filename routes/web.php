@@ -6,10 +6,14 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\GemstoneController;
 use App\Http\Controllers\GemstoneReservationController;
+use App\Http\Controllers\GemstoneTypeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LocalSeoController;
+use App\Http\Controllers\OriginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\TechnicalSeoController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +22,8 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/about-us', [PageController::class, 'about']);
 
 Route::get('/gemstones', [GemstoneController::class, 'index'])->name('gemstones');
-Route::get('/gemstones/{gemstone:slug}', [GemstoneController::class, 'show'])->name('gemstones.show');
+Route::get('/gemstones/{type}/{origin}', [OriginController::class, 'show'])->name('gemstones.silo.origin');
+Route::get('/gemstones/{slug}', [GemstoneTypeController::class, 'show'])->name('gemstones.show');
 Route::post('/gemstones/{gemstone:slug}/reserve', [GemstoneReservationController::class, 'store'])->name('gemstones.reserve');
 Route::get('/services', function () { return redirect()->route('gemstones'); });
 Route::get('/services/{slug}', function ($slug) { return redirect('/gemstones/' . $slug); });
@@ -32,6 +37,10 @@ Route::get('/education/gia-vs-igi', [EducationController::class, 'giaVsIgi'])->n
 Route::get('/education/natural-vs-treated', [EducationController::class, 'naturalVsTreated'])->name('education.natural-vs-treated');
 Route::get('/education/birthstones-vs-astrology', [EducationController::class, 'birthstonesVsAstrology'])->name('education.birthstones-vs-astrology');
 Route::get('/education/buying-gemstones-canada', [EducationController::class, 'buyingInCanada'])->name('education.buying-in-canada');
+Route::get('/education/{slug}', [EducationController::class, 'show'])->name('education.show');
+
+Route::get('/toronto-gemstone-store', [LocalSeoController::class, 'toronto'])->name('local.toronto');
+Route::get('/canada/{province}', [LocalSeoController::class, 'province'])->name('local.province');
 
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
@@ -56,6 +65,7 @@ Route::get('/privacy-policy', [PageController::class, 'privacy']);
 Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 Route::get('/testimonials', [TestimonialController::class, 'index'])->name('testimonials');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/robots.txt', [TechnicalSeoController::class, 'robots'])->name('robots');
 Route::get('/health', function () {
     return response()->json([
         'status' => 'ok',

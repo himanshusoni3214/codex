@@ -13,6 +13,7 @@
     title="Certified Natural Gemstones With Transparent Sourcing"
     subtitle="Natural Gem curates certified stones with full treatment disclosure, ethical sourcing standards, and Canada-first support."
     image="{{ $heroImage }}"
+    imageAlt="Certified emerald gemstone"
     :cta="['label' => 'Shop Gemstones', 'url' => route('gemstones')]"
 />
 
