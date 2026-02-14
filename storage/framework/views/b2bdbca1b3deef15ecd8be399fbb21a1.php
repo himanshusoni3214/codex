@@ -27,7 +27,7 @@
             <h4 class="font-semibold text-gold-200 mb-3">Featured Gemstones</h4>
             <ul class="space-y-2 text-sm text-white/80">
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $navGemstones; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gemstone): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <li><a href="<?php echo e(route('gemstones.show', $gemstone)); ?>" class="hover:text-white"><?php echo e($gemstone->title); ?></a></li>
+                    <li><a href="<?php echo e($gemstone->detailPath()); ?>" class="hover:text-white"><?php echo e($gemstone->title); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
             </ul>
         </div>

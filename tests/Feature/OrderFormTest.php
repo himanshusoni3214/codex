@@ -2,7 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Gemstone;
+use App\Models\Product;
+use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -12,9 +13,11 @@ class OrderFormTest extends TestCase
 
     public function test_purchase_request_stores_order(): void
     {
-        $gemstone = Gemstone::create([
-            'title' => 'Test Gemstone',
-            'slug' => 'test-gemstone',
+        $this->withoutMiddleware(VerifyCsrfToken::class);
+
+        $product = Product::create([
+            'title' => 'Test Product',
+            'slug' => 'test-product',
             'description' => 'Test description',
         ]);
 
@@ -22,14 +25,14 @@ class OrderFormTest extends TestCase
             'name' => 'Order User',
             'email' => 'order@example.com',
             'phone' => '+1 555 555 5555',
-            'service_id' => $gemstone->id,
+            'product_id' => $product->id,
             'message' => 'Interested in this gemstone',
         ]);
 
         $response->assertRedirect();
         $this->assertDatabaseHas('orders', [
             'email' => 'order@example.com',
-            'service_id' => $gemstone->id,
+            'product_id' => $product->id,
         ]);
     }
 }

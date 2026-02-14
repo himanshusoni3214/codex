@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             PageSeeder::class,
             InventorySeeder::class,
+            SeoSiloSeeder::class,
             TestimonialSeeder::class,
             ConsultationTierSeeder::class,
         ]);

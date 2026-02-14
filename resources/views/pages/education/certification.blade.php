@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<x-seo.breadcrumbs :items="$breadcrumbs ?? []" />
+
 <section class="bg-gemstone-glow">
     <div class="max-w-4xl mx-auto px-4 py-16">
         <p class="text-sm uppercase tracking-[0.35em] text-emerald-700">Education</p>
@@ -24,4 +26,6 @@
         <p class="text-sm">Certification protects buyers from misrepresentation and helps preserve long-term value. Always request a report for high-value gemstones.</p>
     </div>
 </section>
+
+<x-education.related-links />
 @endsection

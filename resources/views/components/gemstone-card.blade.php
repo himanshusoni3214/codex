@@ -2,7 +2,14 @@
 
 <div class="bg-white rounded-3xl shadow-lux border border-platinum overflow-hidden flex flex-col">
     <div class="h-44 bg-ivory flex items-center justify-center p-8">
-        <img src="{{ $gemstone->image ?? '/images/gemstones/emerald.svg' }}" alt="{{ $gemstone->title }}" class="max-h-24 max-w-[70%] object-contain" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/images/gemstones/emerald.svg';">
+        <x-responsive-image
+            :model="$gemstone"
+            :src="$gemstone->image"
+            :alt="$gemstone->seo_image_alt"
+            class="max-h-24 max-w-[70%] object-contain"
+            width="320"
+            height="220"
+        />
     </div>
     <div class="p-6 flex flex-col flex-1">
         <p class="text-xs uppercase tracking-[0.2em] text-midnight-500">{{ $gemstone->gem_type ?? $gemstone->category }}</p>
@@ -19,7 +26,7 @@
             <span class="ml-2">Available: {{ $gemstone->available_quantity }}</span>
         </div>
         <div class="mt-4">
-            <x-button href="{{ route('gemstones.show', $gemstone) }}" variant="outline">View Details</x-button>
+            <x-button href="{{ $gemstone->detailPath() }}" variant="outline">View Details</x-button>
         </div>
     </div>
 </div>

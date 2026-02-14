@@ -1,10 +1,19 @@
 @extends('layouts.app')
 
+@php
+    $heroImage = 'https://cdn.pixabay.com/photo/2020/05/12/09/52/emerald-5162137_1280.jpg';
+@endphp
+
+@push('preload')
+    <link rel="preload" as="image" href="{{ $heroImage }}" crossorigin>
+@endpush
+
 @section('content')
 <x-hero
     title="Certified Natural Gemstones With Transparent Sourcing"
     subtitle="Natural Gem curates certified stones with full treatment disclosure, ethical sourcing standards, and Canada-first support."
-    image="https://cdn.pixabay.com/photo/2020/05/12/09/52/emerald-5162137_1280.jpg"
+    image="{{ $heroImage }}"
+    imageAlt="Certified emerald gemstone"
     :cta="['label' => 'Shop Gemstones', 'url' => route('gemstones')]"
 />
 

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<x-seo.breadcrumbs :items="$breadcrumbs ?? []" />
+
 <section class="bg-gemstone-glow">
     <div class="max-w-6xl mx-auto px-4 py-16">
         <p class="text-sm uppercase tracking-[0.35em] text-emerald-700">Education Hub</p>
@@ -30,5 +32,14 @@
         <h3 class="font-display text-2xl text-midnight-900">Buying Gemstones In Canada</h3>
         <p class="text-sm text-midnight-600 mt-2">Tips on pricing, taxes, and verifying authenticity in Canada.</p>
     </a>
+
+    @foreach($educationPages as $educationPage)
+        @if(!in_array($educationPage->slug, ['education', 'certification', 'gia-vs-igi', 'natural-vs-treated', 'birthstones-vs-astrology', 'buying-gemstones-canada']))
+            <a href="{{ route('education.show', $educationPage->slug) }}" class="bg-white rounded-3xl p-6 shadow-lux border border-platinum">
+                <h3 class="font-display text-2xl text-midnight-900">{{ $educationPage->title }}</h3>
+                <p class="text-sm text-midnight-600 mt-2">{{ $educationPage->excerpt ?: 'Editorial education content for responsible buyers.' }}</p>
+            </a>
+        @endif
+    @endforeach
 </section>
 @endsection

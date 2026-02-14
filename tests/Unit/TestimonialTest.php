@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Testimonial;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class TestimonialTest extends TestCase
 {

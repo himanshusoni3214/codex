@@ -13,13 +13,32 @@ class Page extends Model
 
     protected $fillable = [
         'slug',
+        'section',
         'title',
+        'hero_title',
+        'hero_subtitle',
         'meta_title',
         'meta_description',
+        'canonical_url',
+        'schema_json',
+        'faq_items',
+        'related_links',
         'content',
         'excerpt',
         'template',
         'status',
+        'is_indexable',
         'og_image',
     ];
+
+    protected $casts = [
+        'faq_items' => 'array',
+        'related_links' => 'array',
+        'is_indexable' => 'boolean',
+    ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }
