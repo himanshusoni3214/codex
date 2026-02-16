@@ -172,6 +172,15 @@
             </div>
         </section>
 
+        <x-related-links
+            context="product"
+            title="Related guides"
+            :data="[
+                'type_slug' => $typeSlug,
+                'gem_type' => $typeLabel,
+            ]"
+        />
+
         @if($gemstone->symbolic_meaning)
             <div class="bg-ivory rounded-2xl p-4 text-sm text-midnight-600">
                 <h3 class="font-semibold text-midnight-900 mb-2">Traditional &amp; Cultural Context</h3>

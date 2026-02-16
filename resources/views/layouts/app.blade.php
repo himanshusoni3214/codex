@@ -33,6 +33,7 @@
         $includeLocalBusiness = $includeLocalBusiness
             ?? ($routeName === 'contact' || (is_string($routeName) && str_starts_with($routeName, 'local.')) || $routeName === 'gta.show');
         $schemaOrganization = app(\App\SEO\Schema\OrganizationSchema::class)->build($settings ?? []);
+        $schemaWebsite = app(\App\SEO\Schema\WebSiteSchema::class)->build($settings ?? []);
         $schemaLocalBusiness = $includeLocalBusiness
             ? app(\App\SEO\Schema\LocalBusinessSchema::class)->build(
                 $settings ?? [],
@@ -42,6 +43,7 @@
     @endphp
     @include('seo.schema.sitewide-jsonld', [
         'schemaOrganization' => $schemaOrganization,
+        'schemaWebsite' => $schemaWebsite,
         'schemaLocalBusiness' => $schemaLocalBusiness,
     ])
     @stack('schema')

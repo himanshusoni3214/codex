@@ -2,8 +2,8 @@
     $isIndexable = false;
     $page = (object) [
         'title' => 'Admin Login',
-        'meta_title' => 'Admin Login | Natural Gem',
-        'meta_description' => 'Secure admin login for Natural Gem staff.',
+        'meta_title' => 'Admin Login | Natural Gem Store',
+        'meta_description' => 'Secure admin login for Natural Gem Store staff.',
     ];
 ?>
 

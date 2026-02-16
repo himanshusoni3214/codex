@@ -99,6 +99,7 @@ class StructuredDataTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('"@type":"Organization"', false);
+        $response->assertSee('"@type":"WebSite"', false);
         $response->assertDontSee('"@type":"JewelryStore"', false);
     }
 }

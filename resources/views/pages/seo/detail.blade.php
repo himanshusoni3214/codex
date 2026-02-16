@@ -3,6 +3,15 @@
 @section('content')
 <x-seo.breadcrumbs :items="$breadcrumbs ?? []" />
 
+@php
+    $relatedContext = match ($page->section ?? null) {
+        'astrology' => 'astrology',
+        'certification' => 'certification',
+        'engagement' => 'engagement',
+        default => null,
+    };
+@endphp
+
 <x-seo.hero
     :eyebrow="$sectionLabel ?? 'Guide'"
     :title="$page->hero_title ?: $page->title"
@@ -14,17 +23,16 @@
 
     <x-seo.trust-badges />
 
-    @if(!empty($page->related_links))
-        <section class="bg-white rounded-3xl p-6 border border-platinum shadow-lux">
-            <h2 class="font-display text-2xl text-midnight-900">Recommended Internal Links</h2>
-            <div class="mt-4 grid md:grid-cols-2 gap-3 text-sm">
-                @foreach($page->related_links as $link)
-                    <a href="{{ $link['url'] ?? '#' }}" class="rounded-2xl border border-platinum bg-ivory px-4 py-3 hover:border-emerald-500">
-                        {{ $link['label'] ?? 'Learn more' }}
-                    </a>
-                @endforeach
-            </div>
-        </section>
+    @if($relatedContext)
+        <x-related-links
+            :context="$relatedContext"
+            title="Related guides"
+            :data="[
+                'slug' => $page->slug,
+            ]"
+        />
+    @elseif(!empty($page->related_links))
+        <x-related-links :links="$page->related_links" title="Related guides" />
     @endif
 
     @if(($relatedInventory ?? collect())->isNotEmpty())

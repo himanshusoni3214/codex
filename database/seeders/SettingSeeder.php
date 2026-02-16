@@ -11,7 +11,8 @@ class SettingSeeder extends Seeder
     {
         $defaults = [
             'site_name' => 'Natural Gem Store',
-            'logo_path' => '/images/natural-gem-logo.svg',
+            'logo_path' => '/images/natural-gem-store-mark.svg',
+            'logo_wordmark_path' => '/images/natural-gem-store-logo.svg',
             'contact_phone' => '+1 (647) 555-0199',
             'contact_email' => 'hello@naturalgem.com',
             'contact_address' => 'Toronto, Ontario, Canada',
@@ -22,7 +23,8 @@ class SettingSeeder extends Seeder
         ];
 
         foreach ($defaults as $key => $value) {
-            Setting::updateOrCreate(['key' => $key], ['value' => $value]);
+            // Seed defaults without overwriting production configuration.
+            Setting::firstOrCreate(['key' => $key], ['value' => $value]);
         }
     }
 }

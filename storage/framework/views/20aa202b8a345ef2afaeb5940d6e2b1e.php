@@ -49,6 +49,17 @@
 
         </div>
 
+        <div class="mt-6 grid md:grid-cols-2 gap-3 text-sm">
+            <div class="rounded-2xl border border-platinum bg-ivory p-4">
+                <p class="font-semibold text-midnight-900">Certification-first</p>
+                <p class="mt-1 text-midnight-600">Lab-backed documentation is reviewed before purchase confirmation.</p>
+            </div>
+            <div class="rounded-2xl border border-platinum bg-ivory p-4">
+                <p class="font-semibold text-midnight-900">Disclosure-first</p>
+                <p class="mt-1 text-midnight-600">Known treatments and report references are shared in writing.</p>
+            </div>
+        </div>
+
         <div class="mt-6 rounded-2xl border border-platinum bg-ivory p-4 text-sm text-midnight-600">
             <p><strong>Map section:</strong> Embed your verified map for <?php echo e($cityName); ?> appointment support.</p>
             <p class="mt-2"><strong>Primary location:</strong> <?php echo e($settings['contact_address'] ?? 'Toronto, Ontario, Canada'); ?></p>
@@ -64,6 +75,8 @@
                 <a href="<?php echo e(route('consultation')); ?>" class="block underline text-midnight-600 hover:text-emerald-700">Book Consultation</a>
                 <a href="<?php echo e(route('order.create')); ?>" class="block underline text-midnight-600 hover:text-emerald-700">Purchase Request</a>
                 <a href="<?php echo e(route('gemstones')); ?>" class="block underline text-midnight-600 hover:text-emerald-700">Browse Gemstone Inventory</a>
+                <a href="<?php echo e(route('certification.index')); ?>" class="block underline text-midnight-600 hover:text-emerald-700">Certification Library</a>
+                <a href="<?php echo e(route('astrology.index')); ?>" class="block underline text-midnight-600 hover:text-emerald-700">Astrology Stone Guides</a>
             </div>
         </div>
 
@@ -82,6 +95,29 @@
 </section>
 
 <section class="max-w-6xl mx-auto px-4 pb-16 space-y-6">
+    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(!empty($page->faq_items)): ?>
+        <?php if (isset($component)) { $__componentOriginal37db2c605c61c279ebc9663bd105edcf = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal37db2c605c61c279ebc9663bd105edcf = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.seo.faq','data' => ['items' => $page->faq_items,'title' => ''.e($cityName).' Gemstone Store FAQs']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('seo.faq'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['items' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($page->faq_items),'title' => ''.e($cityName).' Gemstone Store FAQs']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal37db2c605c61c279ebc9663bd105edcf)): ?>
+<?php $attributes = $__attributesOriginal37db2c605c61c279ebc9663bd105edcf; ?>
+<?php unset($__attributesOriginal37db2c605c61c279ebc9663bd105edcf); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal37db2c605c61c279ebc9663bd105edcf)): ?>
+<?php $component = $__componentOriginal37db2c605c61c279ebc9663bd105edcf; ?>
+<?php unset($__componentOriginal37db2c605c61c279ebc9663bd105edcf); ?>
+<?php endif; ?>
+    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
     <section class="bg-white rounded-3xl p-6 border border-platinum shadow-lux">
         <h2 class="font-display text-2xl text-midnight-900">Top Gemstone Categories</h2>
         <div class="mt-4 flex flex-wrap gap-2 text-sm">

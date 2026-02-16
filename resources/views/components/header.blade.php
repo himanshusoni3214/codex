@@ -1,57 +1,51 @@
-<header class="bg-white/90 backdrop-blur border-b border-platinum sticky top-0 z-40">
-    <div class="max-w-screen-2xl mx-auto px-4 py-4 grid grid-cols-[auto,minmax(0,1fr),auto] items-center gap-4 lg:gap-5">
-        <a href="{{ route('home') }}" class="flex items-center gap-3 shrink-0 lg:min-w-[240px]">
-            <img src="{{ $settings['logo_path'] ?? '/images/natural-gem-logo.svg' }}" alt="Natural Gem Store" class="h-10 w-10">
-            <div class="leading-tight">
-                <p class="font-display text-lg text-midnight-900">{{ $settings['site_name'] ?? 'Natural Gem Store' }}</p>
-                <p class="hidden xl:block text-xs uppercase tracking-[0.20em] text-midnight-500">Certified Natural Gemstones</p>
+<header class="sticky top-0 z-40 border-b border-platinum bg-white/95 backdrop-blur">
+    <div class="mx-auto max-w-screen-2xl px-3 sm:px-4 lg:px-6">
+        <div class="flex items-center justify-between gap-3 py-2">
+            @php
+                $markLogo = $settings['logo_path'] ?? '/images/natural-gem-store-mark.svg';
+                $wordmarkLogo = $settings['logo_wordmark_path'] ?? '/images/natural-gem-store-logo.svg';
+            @endphp
+            <a href="{{ route('home') }}" class="flex min-w-0 items-center">
+                <img src="{{ $markLogo }}" alt="Natural Gem Store" class="h-12 w-12 shrink-0 sm:hidden">
+                <img src="{{ $wordmarkLogo }}" alt="Natural Gem Store" class="hidden h-14 w-auto sm:block md:h-16">
+            </a>
+
+            <nav class="hidden lg:flex flex-1 items-center justify-center gap-7 text-[15px] font-medium">
+                <a href="{{ route('gemstones') }}" class="whitespace-nowrap transition-colors hover:text-emerald-700">Gemstones</a>
+                <a href="{{ route('certification.index') }}" class="whitespace-nowrap transition-colors hover:text-emerald-700">Certification</a>
+                <a href="{{ route('education') }}" class="whitespace-nowrap transition-colors hover:text-emerald-700">Education</a>
+                <a href="{{ route('contact') }}" class="whitespace-nowrap transition-colors hover:text-emerald-700">Contact</a>
+            </nav>
+
+            <div class="hidden shrink-0 items-center gap-3 lg:flex">
+                <a href="tel:{{ preg_replace('/[^0-9+]/', '', $settings['contact_phone'] ?? '+1 (647) 555-0199') }}"
+                    class="hidden whitespace-nowrap text-sm text-midnight-500 transition-colors hover:text-midnight-700 xl:inline">
+                    {{ $settings['contact_phone'] ?? '+1 (647) 555-0199' }}
+                </a>
+                <x-button href="{{ route('gemstones') }}" class="whitespace-nowrap px-4 py-2 text-sm">
+                    Shop Gemstones
+                </x-button>
             </div>
-        </a>
 
-        <nav class="hidden lg:flex min-w-0 items-center justify-center gap-2 2xl:gap-4 text-[13px] 2xl:text-[15px] font-medium">
-            <a href="{{ route('gemstones') }}" class="whitespace-nowrap hover:text-emerald-700 transition-colors">Gemstones</a>
-            <a href="{{ route('gemstones') }}#browse-by-type" class="whitespace-nowrap hover:text-emerald-700 transition-colors">
-                <span class="2xl:hidden">Types</span>
-                <span class="hidden 2xl:inline">Browse by Gemstone Type</span>
-            </a>
-            <a href="{{ route('gemstones') }}#browse-by-origin" class="whitespace-nowrap hover:text-emerald-700 transition-colors">
-                <span class="2xl:hidden">Origins</span>
-                <span class="hidden 2xl:inline">Browse by Origin</span>
-            </a>
-            <a href="{{ route('education') }}" class="whitespace-nowrap hover:text-emerald-700 transition-colors">Education</a>
-            <a href="{{ route('about') }}" class="whitespace-nowrap hover:text-emerald-700 transition-colors">About</a>
-            <a href="{{ route('consultation') }}" class="whitespace-nowrap hover:text-emerald-700 transition-colors">
-                <span class="2xl:hidden">Consultation</span>
-                <span class="hidden 2xl:inline">Traditional Consultation</span>
-            </a>
-            <a href="{{ route('testimonials') }}" class="whitespace-nowrap hover:text-emerald-700 transition-colors">Reviews</a>
-            <a href="{{ route('contact') }}" class="whitespace-nowrap hover:text-emerald-700 transition-colors">Contact</a>
-        </nav>
-
-        <div class="hidden lg:flex items-center gap-3 shrink-0">
-            <x-button href="{{ route('gemstones') }}" class="whitespace-nowrap px-4">
-                <span class="2xl:hidden">Shop</span>
-                <span class="hidden 2xl:inline">Shop Gemstones</span>
-            </x-button>
+            <button class="ml-auto lg:hidden" data-menu-toggle aria-label="Toggle Menu">
+                <svg class="h-6 w-6 text-midnight-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h18M3 12h18M3 18h18" />
+                </svg>
+            </button>
         </div>
-
-        <button class="ml-auto lg:hidden col-start-3" data-menu-toggle aria-label="Toggle Menu">
-            <svg class="h-6 w-6 text-midnight-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 6h18M3 12h18M3 18h18" />
-            </svg>
-        </button>
     </div>
 
-    <div class="lg:hidden hidden" data-menu>
-        <div class="px-4 pb-4 pt-2 space-y-2 bg-white border-t">
+    <div class="hidden lg:hidden" data-menu>
+        <div class="space-y-2 border-t border-platinum bg-white px-4 pb-4 pt-2">
             <a href="{{ route('gemstones') }}" class="block py-1">Gemstones</a>
-            <a href="{{ route('gemstones') }}#browse-by-type" class="block py-1">Browse by Gemstone Type</a>
-            <a href="{{ route('gemstones') }}#browse-by-origin" class="block py-1">Browse by Origin</a>
+            <a href="{{ route('certification.index') }}" class="block py-1">Certification</a>
             <a href="{{ route('education') }}" class="block py-1">Education</a>
-            <a href="{{ route('about') }}" class="block py-1">About</a>
-            <a href="{{ route('consultation') }}" class="block py-1">Traditional Consultation</a>
-            <a href="{{ route('testimonials') }}" class="block py-1">Reviews</a>
             <a href="{{ route('contact') }}" class="block py-1">Contact</a>
+            <a href="{{ route('consultation') }}" class="block py-1">Book Consultation</a>
+            <a href="{{ route('order.create') }}" class="block py-1">Purchase Request</a>
+            <a href="tel:{{ preg_replace('/[^0-9+]/', '', $settings['contact_phone'] ?? '+1 (647) 555-0199') }}" class="block py-1">
+                {{ $settings['contact_phone'] ?? '+1 (647) 555-0199' }}
+            </a>
             <a href="{{ route('gemstones') }}" class="block py-2 font-semibold text-emerald-700">Shop Gemstones</a>
         </div>
     </div>

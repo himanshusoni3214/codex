@@ -83,7 +83,7 @@ class SeoMetaService
             $type->is_indexable ?? null,
             $origin->is_indexable ?? null,
             $forceNoindex,
-            $this->hasDisallowedParameters($request)
+            $this->hasDisallowedParameters($request) || $this->isNoindexRoute($routeName)
         );
         $robots = $context['robots'] ?? ($indexable ? 'index,follow' : 'noindex,follow');
 
@@ -288,5 +288,15 @@ class SeoMetaService
         }
 
         return $this->seoUrlService->current($request, ['page' => $paginator->currentPage() + 1]);
+    }
+
+    private function isNoindexRoute(?string $routeName): bool
+    {
+        return in_array($routeName, [
+            'login',
+            'login.store',
+            'register',
+            'register.store',
+        ], true);
     }
 }

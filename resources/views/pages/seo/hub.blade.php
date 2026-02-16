@@ -3,6 +3,15 @@
 @section('content')
 <x-seo.breadcrumbs :items="$breadcrumbs ?? []" />
 
+@php
+    $relatedContext = match ($hubType ?? null) {
+        'astrology' => 'astrology',
+        'certification' => 'certification',
+        'engagement' => 'engagement',
+        default => null,
+    };
+@endphp
+
 <x-seo.hero
     :eyebrow="$hubEyebrow ?? 'Gemstone Library'"
     :title="$hubTitle ?? (optional($page)->hero_title ?? optional($page)->title ?? 'Gemstone Hub')"
@@ -15,6 +24,14 @@
     @endif
 
     <x-seo.trust-badges />
+
+    @if($relatedContext)
+        <x-related-links
+            :context="$relatedContext"
+            title="Related guides"
+            :data="['slug' => optional($page)->slug]"
+        />
+    @endif
 
     <section class="bg-white rounded-3xl p-6 border border-platinum shadow-lux">
         <h2 class="font-display text-2xl text-midnight-900">Explore Pages</h2>

@@ -21,6 +21,7 @@
                 <li><a href="{{ route('engagement.index') }}" class="hover:text-white">Engagement Rings</a></li>
                 <li><a href="{{ route('education') }}" class="hover:text-white">Education Hub</a></li>
                 <li><a href="{{ route('blog.index') }}" class="hover:text-white">Blog</a></li>
+                <li><a href="{{ route('local.toronto') }}" class="hover:text-white">Toronto Store</a></li>
                 <li><a href="{{ route('about') }}" class="hover:text-white">About</a></li>
                 <li><a href="{{ route('consultation') }}" class="hover:text-white">Traditional Consultation</a></li>
                 <li><a href="{{ route('contact') }}" class="hover:text-white">Contact</a></li>

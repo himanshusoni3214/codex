@@ -240,6 +240,33 @@
             </div>
         </section>
 
+        <?php if (isset($component)) { $__componentOriginalf33ddeea62c5a6f9de905d23ca79ee92 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalf33ddeea62c5a6f9de905d23ca79ee92 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.related-links','data' => ['context' => 'product','title' => 'Related guides','data' => [
+                'type_slug' => $typeSlug,
+                'gem_type' => $typeLabel,
+            ]]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('related-links'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['context' => 'product','title' => 'Related guides','data' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute([
+                'type_slug' => $typeSlug,
+                'gem_type' => $typeLabel,
+            ])]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalf33ddeea62c5a6f9de905d23ca79ee92)): ?>
+<?php $attributes = $__attributesOriginalf33ddeea62c5a6f9de905d23ca79ee92; ?>
+<?php unset($__attributesOriginalf33ddeea62c5a6f9de905d23ca79ee92); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalf33ddeea62c5a6f9de905d23ca79ee92)): ?>
+<?php $component = $__componentOriginalf33ddeea62c5a6f9de905d23ca79ee92; ?>
+<?php unset($__componentOriginalf33ddeea62c5a6f9de905d23ca79ee92); ?>
+<?php endif; ?>
+
         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($gemstone->symbolic_meaning): ?>
             <div class="bg-ivory rounded-2xl p-4 text-sm text-midnight-600">
                 <h3 class="font-semibold text-midnight-900 mb-2">Traditional &amp; Cultural Context</h3>

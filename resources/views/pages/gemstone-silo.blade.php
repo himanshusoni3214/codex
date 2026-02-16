@@ -31,6 +31,13 @@
         :content="$treatmentContent ?: 'Treatment information is disclosed for each listing where known. This information is provided for informed buying decisions.'"
     />
     <x-seo.faq :items="$faqItems" />
+    <x-related-links
+        context="gemstone_type"
+        title="Related guides"
+        :data="[
+            'type_slug' => $type->slug,
+        ]"
+    />
 </section>
 
 <section class="max-w-6xl mx-auto px-4 pb-16">

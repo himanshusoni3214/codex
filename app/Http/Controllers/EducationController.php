@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\GemstoneRepository;
 use App\Repositories\PageRepository;
 use Illuminate\Http\Response;
 
@@ -55,7 +54,7 @@ class EducationController extends Controller
         ]);
     }
 
-    public function show(string $slug, PageRepository $pages, GemstoneRepository $gemstones): Response
+    public function show(string $slug, PageRepository $pages): Response
     {
         $page = $pages->getBySectionAndSlug('education', $slug);
         abort_if(! $page, 404);
@@ -63,10 +62,6 @@ class EducationController extends Controller
         return response()->view('pages.education.show', [
             'page' => $page,
             'breadcrumbs' => $this->breadcrumbs($page->title),
-            'relatedGemstones' => $gemstones->availableTypes()->take(6),
-            'relatedGuides' => $pages->bySection('education')
-                ->where('slug', '!=', $slug)
-                ->take(6),
         ]);
     }
 

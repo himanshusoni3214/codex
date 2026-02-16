@@ -16,6 +16,7 @@ use App\Models\Page;
 use App\Models\Product;
 use App\Models\Tag;
 use App\Models\User;
+use App\Models\SiteSeoSetting;
 use App\Policies\AdminAuditPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\CertificationPolicy;
@@ -31,6 +32,7 @@ use App\Policies\ProductPolicy;
 use App\Policies\TagPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\MediaPolicy;
+use App\Policies\SiteSeoSettingPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -52,6 +54,7 @@ class AuthServiceProvider extends ServiceProvider
         User::class => UserPolicy::class,
         Media::class => MediaPolicy::class,
         AdminAudit::class => AdminAuditPolicy::class,
+        SiteSeoSetting::class => SiteSeoSettingPolicy::class,
     ];
 
     public function boot(): void

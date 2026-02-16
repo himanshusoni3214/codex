@@ -26,5 +26,5 @@
     </div>
 </section>
 
-<x-education.related-links />
+<x-related-links context="education" title="Related guides" :data="['slug' => 'natural-vs-treated']" class="max-w-4xl mx-auto px-4 pb-14" />
 @endsection

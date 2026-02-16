@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" aria-label="Natural Gem Store stacked logo">
+  <defs>
+    <style>
+      :root{ --black:#000000; --gold:#C6A06A; }
+      .gold-stroke{ fill:none; stroke:var(--gold); stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+      .gold-fill{ fill:var(--gold); }
+      .black-fill{ fill:var(--black); }
+
+      .title{
+        font-family:"Cormorant Garamond","Didot","Bodoni MT","Playfair Display","Times New Roman",serif;
+        font-size:110px;
+        letter-spacing:0.14em;
+        font-weight:500;
+      }
+      .subtitle{
+        font-family:"Manrope","Inter","Helvetica Neue","Arial",sans-serif;
+        font-size:28px;
+        letter-spacing:0.60em;
+        font-weight:500;
+      }
+      .rule{ stroke:var(--gold); stroke-width:2.4; }
+    </style>
+  </defs>
+
+  <!-- ================= ICON (TOP CENTER) ================= -->
+  <!-- Icon centered at (600,140). This is intentionally HIGH to avoid overlap. -->
+  <g id="logo-icon" transform="translate(490,50)">
+    <circle cx="110" cy="110" r="90" class="gold-stroke"/>
+    <path class="gold-stroke"
+      d="M110 55
+         L160 82
+         L148 138
+         L110 168
+         L72 138
+         L60 82 Z"/>
+    <path class="gold-stroke" d="M110 55 L110 105"/>
+    <path class="gold-stroke" d="M72 138 L110 105 L148 138"/>
+    <path class="gold-stroke" d="M60 82 L110 105 L160 82"/>
+    <path class="gold-stroke" d="M72 138 L110 168 L148 138"/>
+  </g>
+
+  <!-- ================= WORDMARK (CENTER) ================= -->
+  <text class="title black-fill" x="600" y="420" text-anchor="middle">NATURAL GEM</text>
+  <text class="subtitle gold-fill" x="600" y="495" text-anchor="middle">STORE</text>
+  <line class="rule" x1="380" y1="485" x2="520" y2="485"/>
+  <line class="rule" x1="680" y1="485" x2="820" y2="485"/>
+</svg>

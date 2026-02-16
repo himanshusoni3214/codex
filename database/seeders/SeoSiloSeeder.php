@@ -211,7 +211,7 @@ class SeoSiloSeeder extends Seeder
             [
                 'organization_name' => 'Natural Gem Store',
                 'site_url' => rtrim(config('app.url', 'https://naturalgem.com'), '/'),
-                'logo_url' => '/images/natural-gem-logo.svg',
+                'logo_url' => '/images/natural-gem-store-mark.svg',
                 'same_as' => [
                     'https://www.instagram.com/naturalgem',
                     'https://www.facebook.com/naturalgem',
@@ -225,7 +225,7 @@ class SeoSiloSeeder extends Seeder
                 'country' => 'CA',
                 'default_meta_title' => 'Natural Gem Store Canada',
                 'default_meta_description' => 'Certified natural gemstones in Canada with transparent pricing and disclosure.',
-                'default_og_image' => '/images/natural-gem-logo.svg',
+                'default_og_image' => '/images/natural-gem-store-logo.svg',
             ]
         );
     }
@@ -549,16 +549,48 @@ HTML,
 
     private function seedGtaPages(): void
     {
+        $cityNotes = [
+            'scarborough-gemstone-store' => [
+                'coverage' => 'Scarborough clients typically use remote shortlist reviews before visiting Toronto for final inspection.',
+                'fulfillment' => 'Evening appointment slots are commonly requested for Scarborough commuters and can be scheduled in advance.',
+            ],
+            'brampton-gemstone-store' => [
+                'coverage' => 'Brampton buyers often compare ruby and sapphire options side by side with report summaries before scheduling.',
+                'fulfillment' => 'Weekend coordination and insured shipment planning are available for Brampton deliveries.',
+            ],
+            'mississauga-gemstone-store' => [
+                'coverage' => 'Mississauga clients frequently request ring-focused gemstone shortlists with CAD budget ranges before consultation.',
+                'fulfillment' => 'Courier handoff and pickup windows are coordinated around Mississauga workday schedules where possible.',
+            ],
+            'north-york-gemstone-store' => [
+                'coverage' => 'North York clients often use in-person review sessions to compare color, clarity, and treatment disclosures.',
+                'fulfillment' => 'Documentation-first purchase requests are typically prepared before the appointment to reduce turnaround time.',
+            ],
+            'markham-gemstone-store' => [
+                'coverage' => 'Markham buyers regularly ask for certification walkthroughs and side-by-side CAD pricing comparisons.',
+                'fulfillment' => 'Pickup and insured shipping options are both available for Markham orders depending on preference.',
+            ],
+            'vaughan-gemstone-store' => [
+                'coverage' => 'Vaughan clients commonly request fast shortlist filtering based on origin and treatment status before visiting.',
+                'fulfillment' => 'Consultation-to-purchase workflows for Vaughan are handled with clear timelines and written disclosure checkpoints.',
+            ],
+        ];
+
         $pages = [
             'scarborough-gemstone-store' => 'Scarborough Gemstone Store',
             'brampton-gemstone-store' => 'Brampton Gemstone Store',
             'mississauga-gemstone-store' => 'Mississauga Gemstone Store',
             'north-york-gemstone-store' => 'North York Gemstone Store',
             'markham-gemstone-store' => 'Markham Gemstone Store',
+            'vaughan-gemstone-store' => 'Vaughan Gemstone Store',
         ];
 
         foreach ($pages as $slug => $title) {
             $city = Str::of($slug)->replace('-gemstone-store', '')->replace('-', ' ')->title()->toString();
+            $notes = $cityNotes[$slug] ?? [
+                'coverage' => "Clients from {$city} can review inventory remotely before appointment confirmation.",
+                'fulfillment' => "Shipping and pickup coordination is available for {$city} with clear written timelines.",
+            ];
 
             Page::updateOrCreate(
                 ['slug' => $slug],
@@ -571,8 +603,10 @@ HTML,
                     'content' => <<<HTML
 <h2>{$city} buyers: how we support your purchase</h2>
 <p>Clients from {$city} can shortlist stones online, request documentation checks, and schedule Toronto-area appointments before final decision-making.</p>
+<p>{$notes['coverage']}</p>
 <h2>Pickup and appointment details</h2>
 <p>Consultation and pickup timelines are confirmed case by case. For shipped orders, insured courier options and GST/HST treatment are explained in writing.</p>
+<p>{$notes['fulfillment']}</p>
 <h2>Disclosure and certification policy</h2>
 <p>Known treatments are disclosed in listing details. Certificate references and report verification guidance are provided where available.</p>
 HTML,
@@ -580,6 +614,32 @@ HTML,
                     'meta_description' => "Find certified gemstone buying support for {$city} with Toronto/GTA consultation options and transparent disclosures.",
                     'status' => 'published',
                     'is_indexable' => true,
+                    'faq_items' => [
+                        [
+                            'question' => "Do you serve {$city} clients by appointment?",
+                            'answer' => "Yes. {$city} clients can request consultation slots with document review before purchase.",
+                        ],
+                        [
+                            'question' => "Can I buy online from {$city}?",
+                            'answer' => 'Yes. You can submit a purchase request online and finalize shipping or pickup details in writing.',
+                        ],
+                        [
+                            'question' => 'Do you disclose treatment status and certification?',
+                            'answer' => 'Yes. Known treatment details and available certificate references are provided before confirmation.',
+                        ],
+                        [
+                            'question' => 'What taxes apply for Ontario deliveries?',
+                            'answer' => 'HST is applied according to Ontario billing and shipping rules.',
+                        ],
+                        [
+                            'question' => 'Can I verify certificate details before paying?',
+                            'answer' => 'Yes. We share verification details when available so you can review documentation first.',
+                        ],
+                        [
+                            'question' => 'Do you guarantee outcomes from gemstone purchases?',
+                            'answer' => 'No. Gemstones are sold as physical products with educational context only.',
+                        ],
+                    ],
                     'related_links' => [
                         ['label' => 'Book Consultation', 'url' => '/consultation'],
                         ['label' => 'Purchase Request', 'url' => '/purchase-request'],

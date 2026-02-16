@@ -1,8 +1,0 @@
-User-agent: *
-Disallow: /admin
-Disallow: /filament
-Disallow: /login
-Disallow: /register
-Disallow: /password
-Disallow: /horizon
-Sitemap: /sitemap.xml

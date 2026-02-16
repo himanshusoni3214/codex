@@ -162,6 +162,30 @@
 <?php $component = $__componentOriginal37db2c605c61c279ebc9663bd105edcf; ?>
 <?php unset($__componentOriginal37db2c605c61c279ebc9663bd105edcf); ?>
 <?php endif; ?>
+    <?php if (isset($component)) { $__componentOriginalf33ddeea62c5a6f9de905d23ca79ee92 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalf33ddeea62c5a6f9de905d23ca79ee92 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.related-links','data' => ['context' => 'gemstone_type','title' => 'Related guides','data' => [
+            'type_slug' => $type->slug,
+        ]]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('related-links'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['context' => 'gemstone_type','title' => 'Related guides','data' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute([
+            'type_slug' => $type->slug,
+        ])]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalf33ddeea62c5a6f9de905d23ca79ee92)): ?>
+<?php $attributes = $__attributesOriginalf33ddeea62c5a6f9de905d23ca79ee92; ?>
+<?php unset($__attributesOriginalf33ddeea62c5a6f9de905d23ca79ee92); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalf33ddeea62c5a6f9de905d23ca79ee92)): ?>
+<?php $component = $__componentOriginalf33ddeea62c5a6f9de905d23ca79ee92; ?>
+<?php unset($__componentOriginalf33ddeea62c5a6f9de905d23ca79ee92); ?>
+<?php endif; ?>
 </section>
 
 <section class="max-w-6xl mx-auto px-4 pb-16">

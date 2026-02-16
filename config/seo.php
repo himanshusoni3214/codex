@@ -7,7 +7,7 @@ return [
     // Media Library ID preferred for OG fallback.
     'default_og_image_id' => env('SEO_DEFAULT_OG_IMAGE_ID'),
     // Can be a media-library ID (int-like string) or a path/URL.
-    'default_og_image' => env('SEO_DEFAULT_OG_IMAGE_ID') ?: env('SEO_DEFAULT_OG_IMAGE', '/images/natural-gem-logo.svg'),
+    'default_og_image' => env('SEO_DEFAULT_OG_IMAGE_ID') ?: env('SEO_DEFAULT_OG_IMAGE', '/images/natural-gem-store-logo.svg'),
     'default_meta_description' => env(
         'SEO_DEFAULT_META_DESCRIPTION',
         'Shop certified natural gemstones in Canada with transparent CAD pricing, treatment disclosures, and documentation-first support.'

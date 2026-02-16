@@ -17,6 +17,7 @@ use App\Models\Product;
 use App\Models\SiteSeoSetting;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -59,6 +60,28 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('*', function ($view) {
             $settings = app(SettingRepository::class)->all();
+            $siteSeo = Schema::hasTable('site_seo_settings') ? SiteSeoSetting::query()->first() : null;
+
+            if ($siteSeo) {
+                $contactAddress = collect([
+                    $siteSeo->address_line,
+                    $siteSeo->city,
+                    $siteSeo->province,
+                    $siteSeo->postal_code,
+                    $siteSeo->country,
+                ])->filter()->unique()->implode(', ');
+
+                $settings = array_merge($settings, array_filter([
+                    'site_name' => $siteSeo->organization_name,
+                    'logo_path' => $siteSeo->logo_url,
+                    'contact_phone' => $siteSeo->contact_phone,
+                    'contact_email' => $siteSeo->contact_email,
+                    'contact_address' => $contactAddress,
+                    'seo_default_meta_title' => $siteSeo->default_meta_title,
+                    'seo_default_meta_description' => $siteSeo->default_meta_description,
+                ], static fn ($value) => filled($value)));
+            }
+
             $navGemstones = app(GemstoneRepository::class)->featured();
 
             $view->with('settings', $settings)
