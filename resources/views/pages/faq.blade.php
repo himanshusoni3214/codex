@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@php
+    $faqSchema = app(\App\SEO\Schema\FaqPageSchema::class)->build($faqItems ?? []);
+@endphp
+
+@push('schema')
+    @include('seo.schema.faq-jsonld', ['schema' => $faqSchema])
+@endpush
+
 @section('content')
 <x-seo.breadcrumbs :items="$breadcrumbs ?? []" />
 

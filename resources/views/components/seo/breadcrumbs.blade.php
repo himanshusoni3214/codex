@@ -3,6 +3,15 @@
 ])
 
 @if(!empty($items))
+    @php
+        // Only emit BreadcrumbList JSON-LD when breadcrumbs are visibly rendered.
+        $breadcrumbSchema = app(\App\SEO\Schema\BreadcrumbListSchema::class)->build($items);
+    @endphp
+
+    @push('schema')
+        @include('seo.schema.breadcrumbs-jsonld', ['schema' => $breadcrumbSchema])
+    @endpush
+
     <nav class="max-w-6xl mx-auto px-4 py-4 text-sm text-midnight-500" aria-label="Breadcrumb">
         <ol class="flex flex-wrap items-center gap-2">
             @foreach($items as $index => $item)
@@ -20,4 +29,3 @@
         </ol>
     </nav>
 @endif
-

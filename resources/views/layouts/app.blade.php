@@ -23,18 +23,18 @@
             'force_noindex' => $forceNoindex ?? false,
             'indexable' => $isIndexable ?? null,
         ]);
-        $structuredData = $structuredData ?? app(\App\Services\StructuredDataService::class)->build([
-            'page' => $page,
-            'gemstone' => $gemstone,
-            'type' => $type,
-            'origin' => $origin,
-            'settings' => $settings ?? [],
-            'faqItems' => $faqItems ?? [],
-            'breadcrumbs' => $breadcrumbs ?? [],
-            'includeLocalBusiness' => $includeLocalBusiness ?? false,
-        ]);
+
+        // Sitewide JSON-LD: Organization + LocalBusiness (Toronto).
+        // Page-specific schemas (Product / BreadcrumbList / FAQPage) are pushed by the views/components
+        // to ensure the markup exactly matches visible content.
+        $schemaOrganization = app(\App\SEO\Schema\OrganizationSchema::class)->build($settings ?? []);
+        $schemaLocalBusiness = app(\App\SEO\Schema\LocalBusinessSchema::class)->build($settings ?? []);
     @endphp
-    @include('partials.structured-data', ['structuredData' => $structuredData])
+    @include('seo.schema.sitewide-jsonld', [
+        'schemaOrganization' => $schemaOrganization,
+        'schemaLocalBusiness' => $schemaLocalBusiness,
+    ])
+    @stack('schema')
     @include('partials.seo-meta', ['seoMeta' => $seoMeta])
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="/images/natural-gem-logo.svg" type="image/svg+xml">

@@ -53,6 +53,9 @@ class StructuredDataTest extends TestCase
         $response->assertSee('"@type":"BreadcrumbList"', false);
         $response->assertSee('"@type":"FAQPage"', false);
         $response->assertSee('"priceCurrency":"CAD"', false);
+        $response->assertSee('"category":"Sapphire"', false);
+        $response->assertSee('"itemCondition":"https://schema.org/NewCondition"', false);
+        $response->assertDontSee('"@type":"AggregateRating"', false);
     }
 
     public function test_contact_page_contains_local_business_but_no_breadcrumb_schema(): void
@@ -66,7 +69,6 @@ class StructuredDataTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('"@type":"Organization"', false);
-        $response->assertSee('"@type":"WebSite"', false);
         $response->assertSee('"@type":"JewelryStore"', false);
         $response->assertDontSee('"@type":"BreadcrumbList"', false);
     }
@@ -83,6 +85,20 @@ class StructuredDataTest extends TestCase
         $response->assertOk();
         $response->assertSee('"@type":"FAQPage"', false);
         $response->assertSee('Do you provide certification?', false);
+        $response->assertSee('"@type":"JewelryStore"', false);
+    }
+
+    public function test_pages_render_sitewide_local_business_schema(): void
+    {
+        config([
+            'app.url' => 'https://naturalgem.com',
+            'seo.site_url' => 'https://naturalgem.com',
+        ]);
+
+        $response = $this->get('/about');
+
+        $response->assertOk();
+        $response->assertSee('"@type":"Organization"', false);
+        $response->assertSee('"@type":"JewelryStore"', false);
     }
 }
-

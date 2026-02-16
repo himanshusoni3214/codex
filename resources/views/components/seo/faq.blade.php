@@ -4,6 +4,15 @@
 ])
 
 @if(!empty($items))
+    @php
+        // Only emit FAQPage JSON-LD when FAQs are visibly rendered.
+        $faqSchema = app(\App\SEO\Schema\FaqPageSchema::class)->build($items);
+    @endphp
+
+    @push('schema')
+        @include('seo.schema.faq-jsonld', ['schema' => $faqSchema])
+    @endpush
+
     <section class="bg-white rounded-3xl p-6 shadow-lux border border-platinum">
         <h2 class="font-display text-2xl text-midnight-900">{{ $title }}</h2>
         <div class="mt-4 space-y-4">
@@ -16,4 +25,3 @@
         </div>
     </section>
 @endif
-

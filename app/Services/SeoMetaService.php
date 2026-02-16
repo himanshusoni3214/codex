@@ -35,28 +35,29 @@ class SeoMetaService
             ?: ($settings['site_name'] ?? config('seo.site_name', 'Natural Gem'));
         $routeName = $request->route()?->getName();
 
+        // IMPORTANT: If we are rendering a product page ($gemstone), product-level meta must take precedence
+        // over type/origin silo meta to keep canonical + OG aligned to the actual product being viewed.
         $title = $context['title']
             ?? $page?->seo_title
             ?? $page?->meta_title
-            ?? ($type?->seo_title ?? $type?->meta_title)
-            ?? ($origin?->seo_title ?? $origin?->meta_title)
-            ?? $gemstone?->meta_title
             ?? ($gemstone
-                ? $this->productTitle($gemstone, $siteName)
-                : $this->defaultTitle($routeName, $siteName, $page, $gemstone, $type, $origin));
+                ? ($gemstone?->meta_title ?: $this->productTitle($gemstone, $siteName))
+                : (($type?->seo_title ?? $type?->meta_title)
+                    ?? ($origin?->seo_title ?? $origin?->meta_title)
+                    ?? $this->defaultTitle($routeName, $siteName, $page, $gemstone, $type, $origin)));
 
         $description = $context['description']
             ?? $page?->seo_description
             ?? $page?->meta_description
-            ?? ($type?->seo_description ?? $type?->meta_description)
-            ?? ($origin?->seo_description ?? $origin?->meta_description)
-            ?? $gemstone?->meta_description
-            ?? $gemstone?->short_description
-            ?? ($page?->excerpt ?: null)
             ?? ($gemstone
-                ? $this->productDescription($gemstone, $type)
-                : $this->defaultDescription($routeName, $page, $gemstone, $type, $origin))
-            ?? ($siteSeo?->default_meta_description ?: config('seo.default_meta_description'));
+                ? ($gemstone?->meta_description
+                    ?: $gemstone?->short_description
+                    ?: $this->productDescription($gemstone, $type))
+                : (($type?->seo_description ?? $type?->meta_description)
+                    ?? ($origin?->seo_description ?? $origin?->meta_description)
+                    ?? ($page?->excerpt ?: null)
+                    ?? $this->defaultDescription($routeName, $page, $gemstone, $type, $origin)
+                    ?? ($siteSeo?->default_meta_description ?: config('seo.default_meta_description'))));
 
         $resolvedCanonical = $context['canonical']
             ?? $page?->canonical_url
@@ -67,10 +68,10 @@ class SeoMetaService
 
         $ogImage = $context['og_image']
             ?? $page?->og_image
-            ?? $type?->resolved_og_image
-            ?? $origin?->resolved_og_image
             ?? $gemstone?->og_image
             ?? $gemstone?->image
+            ?? $type?->resolved_og_image
+            ?? $origin?->resolved_og_image
             ?? ($siteSeo?->default_og_image ?: null)
             ?? config('seo.default_og_image_id')
             ?? ($siteSeo?->logo_url ?: ($settings['logo_path'] ?? config('seo.default_og_image')));

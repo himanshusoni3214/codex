@@ -3,6 +3,7 @@
 @php
     $primaryType = $type ?? $gemstone->primary_gemstone_type;
     $primaryOrigin = $origin ?? $gemstone->primary_origin;
+    $faqs = $faqs ?? ($faqItems ?? []);
     $typeSlug = $primaryType?->slug ?: (\Illuminate\Support\Str::slug($gemstone->gem_type ?? ''));
     $typeLabel = $primaryType?->name ?: ($gemstone->gem_type ?: 'Gemstone');
 
@@ -12,10 +13,31 @@
     $seoAlt = $caratLabel
         ? "{$caratLabel} Ct Natural {$typeLabel} - Certified Gemstone in Canada"
         : "Natural {$typeLabel} - Certified Gemstone in Canada";
+
+    // Keep schema description aligned with the visible "Product Overview" section below.
+    $typeLabelLower = \Illuminate\Support\Str::lower($typeLabel);
+    $overviewParagraphs = [
+        "This {$typeLabelLower} listing is structured for buyers who prioritize measurable gemstone quality before any stylistic preference. The listing records visible factors such as carat, color, cut style, clarity notes, and treatment disclosure in one place, so you can compare options on objective criteria. Rather than relying on broad claims, the page presents what is physically documented for this exact stone and what still requires direct lab verification. That approach keeps decision-making transparent for Canadian buyers evaluating premium gemstones online.",
+        ($caratLabel ? "At {$caratLabel} ct," : 'For this item,') . " weight and rate-per-carat are shown alongside total CAD pricing to make valuation straightforward. Clarity and color are listed as practical buying references, while cut and shape help explain face-up appearance and setting suitability for rings, pendants, or custom commissions. If you are comparing multiple stones in the same budget range, this standardized format helps you assess value quickly without losing detail on certification or disclosure fields.",
+        'Use cases vary by buyer intent: some clients purchase for fine jewelry projects, some for collector inventory, and others for culturally meaningful gifting. In each case, documentation-first purchasing reduces ambiguity. Where a certificate number or lab link is available, it is shown directly. Where details are pending, the listing states that clearly instead of implying certainty. This keeps product representation aligned with both compliance expectations and premium retail standards for gemstone commerce in Canada.',
+        $gemstone->description ?: 'Each gemstone is independently reviewed for visual quality, disclosure status, and listing accuracy before publication.',
+    ];
+    $overviewPlainText = (string) \Illuminate\Support\Str::of(implode(' ', $overviewParagraphs))->squish();
+
+    $productSchema = app(\App\SEO\Schema\ProductSchema::class)->build($gemstone, [
+        'typeSlug' => $typeSlug ?: null,
+        'category' => $typeLabel,
+        'description' => $overviewPlainText,
+        'url' => $canonical ?? null,
+    ]);
 @endphp
 
 @push('preload')
     <link rel="preload" as="image" href="{{ $heroImage }}">
+@endpush
+
+@push('schema')
+    @include('seo.schema.product-jsonld', ['schema' => $productSchema])
 @endpush
 
 @section('content')
@@ -93,23 +115,9 @@
         <section class="bg-white rounded-3xl p-6 border border-platinum shadow-lux">
             <h2 class="font-display text-3xl text-midnight-900">Product Overview</h2>
             <div class="mt-4 space-y-4 text-midnight-600 leading-relaxed">
-                <p>
-                    This {{ \Illuminate\Support\Str::lower($typeLabel) }} listing is structured for buyers who prioritize measurable gemstone quality before any stylistic preference. The listing records visible factors such as carat, color, cut style, clarity notes, and treatment disclosure in one place, so you can compare options on objective criteria. Rather than relying on broad claims, the page presents what is physically documented for this exact stone and what still requires direct lab verification. That approach keeps decision-making transparent for Canadian buyers evaluating premium gemstones online.
-                </p>
-                <p>
-                    @if($caratLabel)
-                        At {{ $caratLabel }} ct,
-                    @else
-                        For this item,
-                    @endif
-                    weight and rate-per-carat are shown alongside total CAD pricing to make valuation straightforward. Clarity and color are listed as practical buying references, while cut and shape help explain face-up appearance and setting suitability for rings, pendants, or custom commissions. If you are comparing multiple stones in the same budget range, this standardized format helps you assess value quickly without losing detail on certification or disclosure fields.
-                </p>
-                <p>
-                    Use cases vary by buyer intent: some clients purchase for fine jewelry projects, some for collector inventory, and others for culturally meaningful gifting. In each case, documentation-first purchasing reduces ambiguity. Where a certificate number or lab link is available, it is shown directly. Where details are pending, the listing states that clearly instead of implying certainty. This keeps product representation aligned with both compliance expectations and premium retail standards for gemstone commerce in Canada.
-                </p>
-                <p>
-                    {{ $gemstone->description ?: 'Each gemstone is independently reviewed for visual quality, disclosure status, and listing accuracy before publication.' }}
-                </p>
+                @foreach($overviewParagraphs as $paragraph)
+                    <p>{{ $paragraph }}</p>
+                @endforeach
             </div>
 
             <div class="mt-6 grid md:grid-cols-2 gap-4 text-sm">
@@ -172,7 +180,7 @@
             </div>
         @endif
 
-        <x-seo.faq :items="$faqItems ?? []" title="FAQs" />
+        <x-seo.faq :items="$faqs" title="FAQs" />
     </div>
 
     <aside class="bg-white rounded-3xl p-6 shadow-lux border border-platinum h-fit">
