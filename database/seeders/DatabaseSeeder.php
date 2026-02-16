@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             SeoSiloSeeder::class,
             TestimonialSeeder::class,
             ConsultationTierSeeder::class,
+            BrandingSeeder::class,
         ]);
     }
 }

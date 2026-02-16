@@ -12,6 +12,9 @@
         if (!$resolvedPaginator && isset($gemstones) && $gemstones instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator) {
             $resolvedPaginator = $gemstones;
         }
+        if (!$resolvedPaginator && isset($posts) && $posts instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator) {
+            $resolvedPaginator = $posts;
+        }
         $seoMeta = $seoMeta ?? app(\App\Services\SeoMetaService::class)->resolve([
             'page' => $page,
             'gemstone' => $gemstone,
@@ -24,11 +27,18 @@
             'indexable' => $isIndexable ?? null,
         ]);
 
-        // Sitewide JSON-LD: Organization + LocalBusiness (Toronto).
-        // Page-specific schemas (Product / BreadcrumbList / FAQPage) are pushed by the views/components
-        // to ensure the markup exactly matches visible content.
+        // Sitewide JSON-LD: Organization.
+        // LocalBusiness is rendered only on contact/local landing routes to match visible local intent.
+        $routeName = request()->route()?->getName();
+        $includeLocalBusiness = $includeLocalBusiness
+            ?? ($routeName === 'contact' || (is_string($routeName) && str_starts_with($routeName, 'local.')) || $routeName === 'gta.show');
         $schemaOrganization = app(\App\SEO\Schema\OrganizationSchema::class)->build($settings ?? []);
-        $schemaLocalBusiness = app(\App\SEO\Schema\LocalBusinessSchema::class)->build($settings ?? []);
+        $schemaLocalBusiness = $includeLocalBusiness
+            ? app(\App\SEO\Schema\LocalBusinessSchema::class)->build(
+                $settings ?? [],
+                $localBusinessServiceArea ?? null
+            )
+            : null;
     @endphp
     @include('seo.schema.sitewide-jsonld', [
         'schemaOrganization' => $schemaOrganization,

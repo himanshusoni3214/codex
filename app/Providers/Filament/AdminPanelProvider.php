@@ -31,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::hex('#0F1A2F'),
                 'gray' => Color::hex('#E3E3E3'),
             ])
-            ->brandName('Natural Gem Admin')
+            ->brandName('Natural Gem Store Admin')
             ->brandLogo(asset('images/natural-gem-logo.svg'))
             ->favicon(asset('favicon.ico'))
             ->darkMode()

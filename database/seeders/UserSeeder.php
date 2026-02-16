@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
         $user = User::updateOrCreate(
             ['email' => 'admin@naturalgem.com'],
             [
-                'name' => 'Natural Gem Admin',
+                'name' => 'Natural Gem Store Admin',
                 'password' => Hash::make('password'),
                 'is_admin' => true,
             ]

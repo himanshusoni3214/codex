@@ -85,10 +85,10 @@ class StructuredDataTest extends TestCase
         $response->assertOk();
         $response->assertSee('"@type":"FAQPage"', false);
         $response->assertSee('Do you provide certification?', false);
-        $response->assertSee('"@type":"JewelryStore"', false);
+        $response->assertDontSee('"@type":"JewelryStore"', false);
     }
 
-    public function test_pages_render_sitewide_local_business_schema(): void
+    public function test_non_local_pages_do_not_render_local_business_schema(): void
     {
         config([
             'app.url' => 'https://naturalgem.com',
@@ -99,6 +99,6 @@ class StructuredDataTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('"@type":"Organization"', false);
-        $response->assertSee('"@type":"JewelryStore"', false);
+        $response->assertDontSee('"@type":"JewelryStore"', false);
     }
 }

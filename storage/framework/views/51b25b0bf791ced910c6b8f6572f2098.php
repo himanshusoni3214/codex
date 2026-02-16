@@ -19,6 +19,15 @@
 <?php unset($__defined_vars); ?>
 
 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(!empty($items)): ?>
+    <?php
+        // Only emit BreadcrumbList JSON-LD when breadcrumbs are visibly rendered.
+        $breadcrumbSchema = app(\App\SEO\Schema\BreadcrumbListSchema::class)->build($items);
+    ?>
+
+    <?php $__env->startPush('schema'); ?>
+        <?php echo $__env->make('seo.schema.breadcrumbs-jsonld', ['schema' => $breadcrumbSchema], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php $__env->stopPush(); ?>
+
     <nav class="max-w-6xl mx-auto px-4 py-4 text-sm text-midnight-500" aria-label="Breadcrumb">
         <ol class="flex flex-wrap items-center gap-2">
             <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -36,5 +45,4 @@
         </ol>
     </nav>
 <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-
 <?php /**PATH /Users/Himanshu/Documents/Mac Documents/naturalgem/resources/views/components/seo/breadcrumbs.blade.php ENDPATH**/ ?>

@@ -13,14 +13,14 @@ class PageSeeder extends Seeder
             [
                 'slug' => 'home',
                 'title' => 'Home',
-                'meta_title' => 'Natural Gem | Certified Natural Gemstones in Canada',
+                'meta_title' => 'Natural Gem Store | Certified Natural Gemstones in Canada',
                 'meta_description' => 'Shop certified natural gemstones with transparent sourcing, treatment disclosure, and expert guidance. Based in Canada.',
             ],
             [
                 'slug' => 'about',
-                'title' => 'About Natural Gem',
-                'meta_title' => 'About Natural Gem | Certified Gemstone Specialists',
-                'meta_description' => 'Learn how Natural Gem sources, certifies, and curates natural gemstones with transparency and care.',
+                'title' => 'About Natural Gem Store',
+                'meta_title' => 'About Natural Gem Store | Certified Gemstone Specialists',
+                'meta_description' => 'Learn how Natural Gem Store sources, certifies, and curates natural gemstones with transparency and care.',
             ],
             [
                 'slug' => 'gemstones',
@@ -37,13 +37,13 @@ class PageSeeder extends Seeder
             [
                 'slug' => 'contact',
                 'title' => 'Contact',
-                'meta_title' => 'Contact Natural Gem',
+                'meta_title' => 'Contact Natural Gem Store',
                 'meta_description' => 'Contact our gemstone specialists for sourcing, certification, or product inquiries.',
             ],
             [
                 'slug' => 'purchase-request',
                 'title' => 'Purchase Request',
-                'meta_title' => 'Purchase Request | Natural Gem',
+                'meta_title' => 'Purchase Request | Natural Gem Store',
                 'meta_description' => 'Submit a purchase request for certified gemstones or fine jewelry.',
             ],
             [
@@ -55,37 +55,37 @@ class PageSeeder extends Seeder
             [
                 'slug' => 'terms',
                 'title' => 'Terms of Service',
-                'meta_title' => 'Terms of Service | Natural Gem',
+                'meta_title' => 'Terms of Service | Natural Gem Store',
                 'meta_description' => 'Review our terms of service and purchase policies.',
             ],
             [
                 'slug' => 'privacy',
                 'title' => 'Privacy Policy',
-                'meta_title' => 'Privacy Policy | Natural Gem',
+                'meta_title' => 'Privacy Policy | Natural Gem Store',
                 'meta_description' => 'Understand how we collect and protect your information.',
             ],
             [
                 'slug' => 'disclaimer',
                 'title' => 'Disclaimer',
-                'meta_title' => 'Disclaimer | Natural Gem',
+                'meta_title' => 'Disclaimer | Natural Gem Store',
                 'meta_description' => 'Important disclosures about certification, cultural symbolism, and no-outcome claims.',
             ],
             [
                 'slug' => 'refunds',
                 'title' => 'Refund & Return Policy',
-                'meta_title' => 'Refund & Return Policy | Natural Gem',
+                'meta_title' => 'Refund & Return Policy | Natural Gem Store',
                 'meta_description' => 'Details on returns, exchanges, and verification requirements.',
             ],
             [
                 'slug' => 'faq',
                 'title' => 'FAQ',
-                'meta_title' => 'FAQ | Natural Gem',
+                'meta_title' => 'FAQ | Natural Gem Store',
                 'meta_description' => 'Answers to common questions about gemstones and certification.',
             ],
             [
                 'slug' => 'testimonials',
                 'title' => 'Testimonials',
-                'meta_title' => 'Client Testimonials | Natural Gem',
+                'meta_title' => 'Client Testimonials | Natural Gem Store',
                 'meta_description' => 'Client experiences with our certified gemstone sourcing and service.',
             ],
         ];

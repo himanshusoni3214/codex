@@ -106,7 +106,7 @@ class InventorySeeder extends Seeder
                     'origin' => $origin,
                     'color' => $color,
                     'clarity' => $clarity,
-                    'meta_title' => $name ? "{$name} | Natural Gem" : 'Natural Gem Inventory',
+                    'meta_title' => $name ? "{$name} | Natural Gem Store" : 'Natural Gem Store Inventory',
                     'meta_description' => $shortDescription,
                     'is_featured' => false,
                     'deleted_at' => null,

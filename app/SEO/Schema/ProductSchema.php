@@ -60,7 +60,7 @@ final class ProductSchema
             'category' => (string) $category,
             'brand' => [
                 '@type' => 'Brand',
-                'name' => 'Natural Gem',
+                'name' => 'Natural Gem Store',
             ],
             'offers' => array_filter([
                 '@type' => 'Offer',

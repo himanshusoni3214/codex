@@ -1,7 +1,7 @@
 {
     "name": "naturalgem/lalkitab-office",
     "type": "project",
-    "description": "Natural Gem - certified natural gemstones and education platform",
+    "description": "Natural Gem Store - certified natural gemstones and education platform",
     "keywords": [
         "laravel",
         "gemstones",
@@ -68,7 +68,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "8.3.0"
+        }
     },
     "minimum-stability": "stable",
     "prefer-stable": true

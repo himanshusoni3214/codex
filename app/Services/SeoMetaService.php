@@ -32,7 +32,7 @@ class SeoMetaService
             ? SiteSeoSetting::query()->first()
             : null;
         $siteName = $siteSeo?->organization_name
-            ?: ($settings['site_name'] ?? config('seo.site_name', 'Natural Gem'));
+            ?: ($settings['site_name'] ?? config('seo.site_name', 'Natural Gem Store'));
         $routeName = $request->route()?->getName();
 
         // IMPORTANT: If we are rendering a product page ($gemstone), product-level meta must take precedence
@@ -128,6 +128,15 @@ class SeoMetaService
             'education.natural-vs-treated' => "Natural vs Treated Gemstones | {$siteName} Education",
             'education.buying-in-canada' => "Buying Gemstones in Canada | {$siteName} Education",
             'education.birthstones-vs-astrology' => "Birthstones vs Traditional Stones | {$siteName} Education",
+            'astrology.index' => "Astrology Gemstone Guidance Toronto | {$siteName}",
+            'astrology.show' => ($page?->title ?: 'Astrology Gemstone Guide') . " | {$siteName}",
+            'certification.index' => "Gemstone Certification Library | {$siteName}",
+            'certification.show' => ($page?->title ?: 'Certification Guide') . " | {$siteName}",
+            'engagement.index' => "Colored Gemstone Engagement Rings Toronto | {$siteName}",
+            'engagement.show' => ($page?->title ?: 'Engagement Ring Guide') . " | {$siteName}",
+            'gta.show' => ($page?->title ?: 'GTA Gemstone Store') . " | {$siteName}",
+            'blog.index' => "Gemstone Blog Canada | {$siteName}",
+            'blog.show' => ($page?->title ?: 'Gemstone Blog') . " | {$siteName}",
             default => ($page?->title ? "{$page->title} | {$siteName}" : "{$siteName} Canada"),
         };
     }
@@ -149,6 +158,15 @@ class SeoMetaService
             'education.natural-vs-treated' => 'Learn how natural and treated gemstones differ and why disclosure matters in responsible purchasing.',
             'education.buying-in-canada' => 'Review CAD pricing, GST/HST expectations, and documentation checks for buying gemstones in Canada.',
             'education.birthstones-vs-astrology' => 'Understand birthstone traditions and belief-based gemstone guidance in a compliance-safe context.',
+            'astrology.index' => 'Browse belief-based astrology gemstone guides for Toronto and GTA buyers with transparent certification and disclosure links.',
+            'astrology.show' => $page?->excerpt ?: 'Belief-based gemstone guide with disclosure-first buying checks and consultation options in Canada.',
+            'certification.index' => 'Access gemstone certification guides for report verification, disclosure checks, and practical Canadian buying safeguards.',
+            'certification.show' => $page?->excerpt ?: 'Certification guide for report interpretation, disclosure checks, and responsible gemstone buying in Canada.',
+            'engagement.index' => 'Explore colored gemstone engagement ring planning in Toronto with custom appointment and certification-backed sourcing.',
+            'engagement.show' => $page?->excerpt ?: 'Engagement ring guide for timeline planning, durability, and CAD-first custom design support.',
+            'gta.show' => $page?->excerpt ?: 'Local GTA gemstone support with consultation, purchase request, and disclosure-first buying guidance.',
+            'blog.index' => 'Natural Gem Store editorial blog with Canada-first gemstone education, certification tips, and disclosure guidance.',
+            'blog.show' => $page?->excerpt ?: 'Gemstone education article for Canadian buyers focused on transparency and documentation.',
             'gemstones.show' => $gemstone
                 ? "View {$gemstone->title} with CAD pricing, certification details, treatment disclosures, and current inventory status."
                 : "Shop certified {$type?->name} in Canada with transparent pricing, disclosures, and documentation.",
@@ -174,7 +192,7 @@ class SeoMetaService
         $carat = $this->resolveCaratValue($gemstone);
         $caratLabel = $carat ? number_format($carat, 2) . ' ct' : 'certified';
 
-        return "Buy {$caratLabel} natural {$resolvedType} in Canada. Certified, ethically sourced, with transparent treatment disclosure and documentation at Natural Gem.";
+        return "Buy {$caratLabel} natural {$resolvedType} in Canada. Certified, ethically sourced, with transparent treatment disclosure and documentation at Natural Gem Store.";
     }
 
     private function resolveCaratValue(mixed $gemstone): ?float

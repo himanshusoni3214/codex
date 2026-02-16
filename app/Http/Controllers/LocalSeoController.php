@@ -18,6 +18,7 @@ class LocalSeoController extends Controller
             'types' => $gemstones->availableTypes()->take(10),
             'origins' => $gemstones->availableOrigins()->take(10),
             'includeLocalBusiness' => true,
+            'localBusinessServiceArea' => 'Toronto, GTA, Ontario, Canada',
             'isIndexable' => $page?->is_indexable ?? true,
             'breadcrumbs' => [
                 ['label' => 'Home', 'url' => route('home')],
@@ -37,6 +38,7 @@ class LocalSeoController extends Controller
             'province' => Str::title(str_replace('-', ' ', $province)),
             'types' => $gemstones->availableTypes()->take(10),
             'includeLocalBusiness' => true,
+            'localBusinessServiceArea' => Str::title(str_replace('-', ' ', $province)) . ', Canada',
             'isIndexable' => $page?->is_indexable ?? true,
             'breadcrumbs' => [
                 ['label' => 'Home', 'url' => route('home')],

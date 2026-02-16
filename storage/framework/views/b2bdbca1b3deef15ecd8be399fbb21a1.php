@@ -2,9 +2,9 @@
     <div class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-4 gap-8">
         <div>
             <div class="flex items-center gap-3">
-                <img src="<?php echo e($settings['logo_path'] ?? '/images/natural-gem-logo.svg'); ?>" alt="Natural Gem" class="h-10 w-10">
+                <img src="<?php echo e($settings['logo_path'] ?? '/images/natural-gem-logo.svg'); ?>" alt="Natural Gem Store" class="h-10 w-10">
                 <div>
-                    <p class="font-display text-lg"><?php echo e($settings['site_name'] ?? 'Natural Gem'); ?></p>
+                    <p class="font-display text-lg"><?php echo e($settings['site_name'] ?? 'Natural Gem Store'); ?></p>
                     <p class="text-xs uppercase tracking-[0.28em] text-gold-300">Certified Natural Gemstones</p>
                 </div>
             </div>
@@ -16,7 +16,11 @@
             <h4 class="font-semibold text-gold-200 mb-3">Explore</h4>
             <ul class="space-y-2 text-sm text-white/80">
                 <li><a href="<?php echo e(route('gemstones')); ?>" class="hover:text-white">Gemstones</a></li>
+                <li><a href="<?php echo e(route('astrology.index')); ?>" class="hover:text-white">Astrology Stones</a></li>
+                <li><a href="<?php echo e(route('certification.index')); ?>" class="hover:text-white">Certification Library</a></li>
+                <li><a href="<?php echo e(route('engagement.index')); ?>" class="hover:text-white">Engagement Rings</a></li>
                 <li><a href="<?php echo e(route('education')); ?>" class="hover:text-white">Education Hub</a></li>
+                <li><a href="<?php echo e(route('blog.index')); ?>" class="hover:text-white">Blog</a></li>
                 <li><a href="<?php echo e(route('about')); ?>" class="hover:text-white">About</a></li>
                 <li><a href="<?php echo e(route('consultation')); ?>" class="hover:text-white">Traditional Consultation</a></li>
                 <li><a href="<?php echo e(route('contact')); ?>" class="hover:text-white">Contact</a></li>
@@ -63,7 +67,7 @@
 
     <div class="border-t border-white/10">
         <div class="max-w-6xl mx-auto px-4 py-4 text-xs text-white/60 flex flex-col md:flex-row justify-between gap-2">
-            <span>&copy; <?php echo e(date('Y')); ?> <?php echo e($settings['site_name'] ?? 'Natural Gem'); ?>. All rights reserved.</span>
+            <span>&copy; <?php echo e(date('Y')); ?> <?php echo e($settings['site_name'] ?? 'Natural Gem Store'); ?>. All rights reserved.</span>
             <span>GST/HST applied where applicable. <?php echo e($settings['tax_note'] ?? ''); ?></span>
         </div>
         <div class="max-w-6xl mx-auto px-4 pb-6 text-xs text-white/50">

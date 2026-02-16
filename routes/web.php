@@ -1,12 +1,17 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\AstrologyController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EducationController;
+use App\Http\Controllers\EngagementRingController;
 use App\Http\Controllers\GemstoneController;
 use App\Http\Controllers\GemstoneReservationController;
 use App\Http\Controllers\GemstoneTypeController;
+use App\Http\Controllers\GtaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocalSeoController;
 use App\Http\Controllers\OriginController;
@@ -39,8 +44,21 @@ Route::get('/education/birthstones-vs-astrology', [EducationController::class, '
 Route::get('/education/buying-gemstones-canada', [EducationController::class, 'buyingInCanada'])->name('education.buying-in-canada');
 Route::get('/education/{slug}', [EducationController::class, 'show'])->name('education.show');
 
+Route::get('/astrology', [AstrologyController::class, 'index'])->name('astrology.index');
+Route::get('/astrology/{slug}', [AstrologyController::class, 'show'])->name('astrology.show');
+
+Route::get('/certification', [CertificationController::class, 'index'])->name('certification.index');
+Route::get('/certification/{slug}', [CertificationController::class, 'show'])->name('certification.show');
+
+Route::get('/engagement-rings', [EngagementRingController::class, 'index'])->name('engagement.index');
+Route::get('/engagement-rings/{slug}', [EngagementRingController::class, 'show'])->name('engagement.show');
+
 Route::get('/toronto-gemstone-store', [LocalSeoController::class, 'toronto'])->name('local.toronto');
 Route::get('/canada/{province}', [LocalSeoController::class, 'province'])->name('local.province');
+Route::get('/gta/{location}', [GtaController::class, 'show'])->name('gta.show');
+
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

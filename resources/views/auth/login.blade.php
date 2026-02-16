@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@php
+    $isIndexable = false;
+    $page = (object) [
+        'title' => 'Admin Login',
+        'meta_title' => 'Admin Login | Natural Gem Store',
+        'meta_description' => 'Secure admin login for Natural Gem Store staff.',
+    ];
+@endphp
+
 @section('content')
 <section class="max-w-md mx-auto px-4 py-16">
     <div class="bg-white rounded-3xl p-8 shadow-lux border border-platinum">

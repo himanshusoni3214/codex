@@ -22,7 +22,7 @@ All JSON-LD is rendered via `resources/views/partials/structured-data.blade.php`
   "sku": "101",
   "brand": {
     "@type": "Brand",
-    "name": "Natural Gem"
+    "name": "Natural Gem Store"
   },
   "offers": {
     "@type": "Offer",

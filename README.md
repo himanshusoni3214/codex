@@ -1,4 +1,4 @@
-# Natural Gem (Laravel 10)
+# Natural Gem Store (Laravel 10)
 
 Canada-first gemstone brand experience focused on certification, transparency, and education.
 

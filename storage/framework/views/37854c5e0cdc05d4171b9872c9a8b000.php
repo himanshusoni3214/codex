@@ -22,6 +22,15 @@
 <?php unset($__defined_vars); ?>
 
 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(!empty($items)): ?>
+    <?php
+        // Only emit FAQPage JSON-LD when FAQs are visibly rendered.
+        $faqSchema = app(\App\SEO\Schema\FaqPageSchema::class)->build($items);
+    ?>
+
+    <?php $__env->startPush('schema'); ?>
+        <?php echo $__env->make('seo.schema.faq-jsonld', ['schema' => $faqSchema], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php $__env->stopPush(); ?>
+
     <section class="bg-white rounded-3xl p-6 shadow-lux border border-platinum">
         <h2 class="font-display text-2xl text-midnight-900"><?php echo e($title); ?></h2>
         <div class="mt-4 space-y-4">
@@ -34,5 +43,4 @@
         </div>
     </section>
 <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-
 <?php /**PATH /Users/Himanshu/Documents/Mac Documents/naturalgem/resources/views/components/seo/faq.blade.php ENDPATH**/ ?>

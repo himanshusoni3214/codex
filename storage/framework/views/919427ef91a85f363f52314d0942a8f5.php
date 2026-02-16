@@ -12,6 +12,9 @@
         if (!$resolvedPaginator && isset($gemstones) && $gemstones instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator) {
             $resolvedPaginator = $gemstones;
         }
+        if (!$resolvedPaginator && isset($posts) && $posts instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator) {
+            $resolvedPaginator = $posts;
+        }
         $seoMeta = $seoMeta ?? app(\App\Services\SeoMetaService::class)->resolve([
             'page' => $page,
             'gemstone' => $gemstone,
@@ -23,18 +26,25 @@
             'force_noindex' => $forceNoindex ?? false,
             'indexable' => $isIndexable ?? null,
         ]);
-        $structuredData = $structuredData ?? app(\App\Services\StructuredDataService::class)->build([
-            'page' => $page,
-            'gemstone' => $gemstone,
-            'type' => $type,
-            'origin' => $origin,
-            'settings' => $settings ?? [],
-            'faqItems' => $faqItems ?? [],
-            'breadcrumbs' => $breadcrumbs ?? [],
-            'includeLocalBusiness' => $includeLocalBusiness ?? false,
-        ]);
+
+        // Sitewide JSON-LD: Organization.
+        // LocalBusiness is rendered only on contact/local landing routes to match visible local intent.
+        $routeName = request()->route()?->getName();
+        $includeLocalBusiness = $includeLocalBusiness
+            ?? ($routeName === 'contact' || (is_string($routeName) && str_starts_with($routeName, 'local.')) || $routeName === 'gta.show');
+        $schemaOrganization = app(\App\SEO\Schema\OrganizationSchema::class)->build($settings ?? []);
+        $schemaLocalBusiness = $includeLocalBusiness
+            ? app(\App\SEO\Schema\LocalBusinessSchema::class)->build(
+                $settings ?? [],
+                $localBusinessServiceArea ?? null
+            )
+            : null;
     ?>
-    <?php echo $__env->make('partials.structured-data', ['structuredData' => $structuredData], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php echo $__env->make('seo.schema.sitewide-jsonld', [
+        'schemaOrganization' => $schemaOrganization,
+        'schemaLocalBusiness' => $schemaLocalBusiness,
+    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php echo $__env->yieldPushContent('schema'); ?>
     <?php echo $__env->make('partials.seo-meta', ['seoMeta' => $seoMeta], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <link rel="icon" href="/images/natural-gem-logo.svg" type="image/svg+xml">

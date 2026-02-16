@@ -280,7 +280,7 @@ class Product extends Model implements HasMedia
         }
 
         if ($parts === []) {
-            return trim(($this->title ?: 'Natural Gem') . ' gemstone');
+            return trim(($this->title ?: 'Natural Gem Store') . ' gemstone');
         }
 
         return implode(' ', $parts);

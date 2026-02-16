@@ -12,13 +12,17 @@
 <section class="max-w-6xl mx-auto px-4 py-12 grid lg:grid-cols-3 gap-6">
     <div class="lg:col-span-2 bg-white rounded-3xl p-6 border border-platinum shadow-lux">
         <h2 class="font-display text-2xl text-midnight-900">Local Trust & Buying Confidence</h2>
-        <p class="text-midnight-600 mt-3">Natural Gem serves Toronto clients with clear gemstone documentation, treatment disclosure, and province-based GST/HST handling. Product context is educational and no outcomes are implied.</p>
+        <p class="text-midnight-600 mt-3">Natural Gem Store serves Toronto clients with clear gemstone documentation, treatment disclosure, and province-based GST/HST handling. Product context is educational and no outcomes are implied.</p>
         <div class="mt-6 rounded-2xl border border-platinum bg-ivory p-4 text-sm text-midnight-600">
             <p><strong>Map Placeholder:</strong> Embed your verified Google Business map here.</p>
             <p class="mt-2">Address: {{ $settings['contact_address'] ?? 'Toronto, Ontario, Canada' }}</p>
             <p>Phone: {{ $settings['contact_phone'] ?? '+1 (647) 555-0199' }}</p>
             <p>Email: {{ $settings['contact_email'] ?? 'hello@naturalgem.com' }}</p>
             <p class="mt-2"><strong>Areas served:</strong> Toronto, GTA, and Ontario.</p>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-3">
+            <x-button href="{{ route('consultation') }}">Book Consultation</x-button>
+            <x-button href="{{ route('order.create') }}" variant="outline">Purchase Request</x-button>
         </div>
     </div>
     <div class="bg-white rounded-3xl p-6 border border-platinum shadow-lux">

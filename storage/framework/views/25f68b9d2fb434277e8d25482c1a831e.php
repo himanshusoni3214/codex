@@ -1,9 +1,9 @@
 <?php $__env->startSection('content'); ?>
 <section class="bg-gemstone-glow">
     <div class="max-w-6xl mx-auto px-4 py-16">
-        <p class="text-sm uppercase tracking-[0.35em] text-emerald-700">About Natural Gem</p>
+        <p class="text-sm uppercase tracking-[0.35em] text-emerald-700">About Natural Gem Store</p>
         <h1 class="font-display text-4xl text-midnight-900 mt-3">Canada-first Gemstone Specialists</h1>
-        <p class="text-lg text-midnight-600 mt-4 max-w-3xl">Natural Gem is built on transparency, certification, and ethical sourcing. We focus on natural gemstones and fine jewelry with clear documentation and honest guidance.</p>
+        <p class="text-lg text-midnight-600 mt-4 max-w-3xl">Natural Gem Store is built on transparency, certification, and ethical sourcing. We focus on natural gemstones and fine jewelry with clear documentation and honest guidance.</p>
     </div>
 </section>
 

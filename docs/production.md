@@ -1,4 +1,4 @@
-# Natural Gem – Production Deployment (Canada)
+# Natural Gem Store – Production Deployment (Canada)
 
 ## Phase 1 — PHP 8.3 + OPcache
 

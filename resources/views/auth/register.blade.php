@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@php
+    $isIndexable = false;
+    $page = (object) [
+        'title' => 'Create Account',
+        'meta_title' => 'Create Account | Natural Gem Store',
+        'meta_description' => 'Create a Natural Gem Store customer account.',
+    ];
+@endphp
+
 @section('content')
 <section class="max-w-md mx-auto px-4 py-16">
     <div class="bg-white rounded-3xl p-8 shadow-lux border border-platinum">

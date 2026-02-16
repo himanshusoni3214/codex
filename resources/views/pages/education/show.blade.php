@@ -56,5 +56,14 @@
             </div>
         </section>
     @endif
+
+    <section class="bg-white rounded-3xl p-6 shadow-lux border border-platinum">
+        <h2 class="font-display text-2xl text-midnight-900">Explore More</h2>
+        <div class="mt-4 space-y-2 text-sm">
+            <a class="block underline text-midnight-600 hover:text-emerald-700" href="{{ route('certification.index') }}">Certification Library</a>
+            <a class="block underline text-midnight-600 hover:text-emerald-700" href="{{ route('astrology.index') }}">Astrology Stone Guides</a>
+            <a class="block underline text-midnight-600 hover:text-emerald-700" href="{{ route('engagement.index') }}">Colored Engagement Rings</a>
+        </div>
+    </section>
 </section>
 @endsection

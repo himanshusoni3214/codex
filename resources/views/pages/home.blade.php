@@ -11,7 +11,7 @@
 @section('content')
 <x-hero
     title="Certified Natural Gemstones With Transparent Sourcing"
-    subtitle="Natural Gem curates certified stones with full treatment disclosure, ethical sourcing standards, and Canada-first support."
+    subtitle="Natural Gem Store curates certified stones with full treatment disclosure, ethical sourcing standards, and Canada-first support."
     image="{{ $heroImage }}"
     imageAlt="Certified emerald gemstone"
     :cta="['label' => 'Shop Gemstones', 'url' => route('gemstones')]"
@@ -109,7 +109,7 @@
 <section class="max-w-6xl mx-auto px-4 py-12">
     <div class="bg-white rounded-3xl p-8 shadow-lux border border-platinum">
         <h3 class="font-display text-2xl text-midnight-900">Compliance & Disclaimer</h3>
-        <p class="text-midnight-600 mt-2">Natural Gem provides certified gemstones and educational resources. Any cultural or traditional gemstone symbolism is offered for personal interest only and does not imply medical, legal, financial, or personal outcomes.</p>
+        <p class="text-midnight-600 mt-2">Natural Gem Store provides certified gemstones and educational resources. Any cultural or traditional gemstone symbolism is offered for personal interest only and does not imply medical, legal, financial, or personal outcomes.</p>
         <p class="mt-3 text-midnight-500 text-sm">No guarantees or outcomes are implied. Always consult licensed professionals for medical, legal, or financial matters.</p>
     </div>
 </section>

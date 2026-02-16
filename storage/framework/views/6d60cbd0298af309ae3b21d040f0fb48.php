@@ -1,3 +1,11 @@
+<?php
+    $faqSchema = app(\App\SEO\Schema\FaqPageSchema::class)->build($faqItems ?? []);
+?>
+
+<?php $__env->startPush('schema'); ?>
+    <?php echo $__env->make('seo.schema.faq-jsonld', ['schema' => $faqSchema], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopPush(); ?>
+
 <?php $__env->startSection('content'); ?>
 <?php if (isset($component)) { $__componentOriginal55cb0bab01fede933c30aaea5d0d6c71 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal55cb0bab01fede933c30aaea5d0d6c71 = $attributes; } ?>

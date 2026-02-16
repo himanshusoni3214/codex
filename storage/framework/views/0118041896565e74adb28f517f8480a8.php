@@ -2,7 +2,7 @@
     $seoMeta = $seoMeta ?? [];
 ?>
 
-<title><?php echo e($seoMeta['title'] ?? 'Natural Gem Canada'); ?></title>
+<title><?php echo e($seoMeta['title'] ?? 'Natural Gem Store Canada'); ?></title>
 <meta name="description" content="<?php echo e($seoMeta['description'] ?? ''); ?>">
 <meta name="robots" content="<?php echo e($seoMeta['robots'] ?? 'index,follow'); ?>">
 <link rel="canonical" href="<?php echo e($seoMeta['canonical'] ?? app(\App\Services\SeoUrlService::class)->current(request())); ?>">

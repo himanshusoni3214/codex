@@ -3,6 +3,18 @@
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
+$providers = [
+    App\Providers\AppServiceProvider::class,
+    App\Providers\AuthServiceProvider::class,
+    App\Providers\Filament\AdminPanelProvider::class,
+    App\Providers\HorizonServiceProvider::class,
+    App\Providers\RouteServiceProvider::class,
+];
+
+if (class_exists(\Laravel\Telescope\TelescopeServiceProvider::class)) {
+    $providers[] = App\Providers\TelescopeServiceProvider::class;
+}
+
 return [
     'name' => env('APP_NAME', 'Laravel'),
     'env' => env('APP_ENV', 'production'),
@@ -20,14 +32,7 @@ return [
         'driver' => 'file',
     ],
 
-    'providers' => ServiceProvider::defaultProviders()->merge([
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\Filament\AdminPanelProvider::class,
-        App\Providers\HorizonServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        App\Providers\TelescopeServiceProvider::class,
-    ])->toArray(),
+    'providers' => ServiceProvider::defaultProviders()->merge($providers)->toArray(),
 
     'aliases' => Facade::defaultAliases()->merge([
         'Route' => Illuminate\Support\Facades\Route::class,

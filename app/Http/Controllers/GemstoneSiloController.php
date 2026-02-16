@@ -106,6 +106,7 @@ class GemstoneSiloController extends Controller
                 'type' => $primaryType,
                 'origin' => $primaryOrigin,
                 'faqItems' => $faqItems,
+                'faqs' => $faqItems,
                 'relatedEducation' => $pages->bySection('education')->take(3),
                 'breadcrumbs' => $this->productBreadcrumbs($product, $primaryType, $primaryOrigin),
                 'typeLink' => $typeSlug ? route('gemstones.show', ['slug' => $typeSlug]) : null,

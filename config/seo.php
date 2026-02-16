@@ -2,7 +2,7 @@
 
 return [
     'site_url' => rtrim(env('APP_URL', 'https://naturalgem.com'), '/'),
-    'site_name' => env('SEO_SITE_NAME', env('APP_NAME', 'Natural Gem')),
+    'site_name' => env('SEO_SITE_NAME', env('APP_NAME', 'Natural Gem Store')),
 
     // Media Library ID preferred for OG fallback.
     'default_og_image_id' => env('SEO_DEFAULT_OG_IMAGE_ID'),
@@ -14,7 +14,7 @@ return [
     ),
 
     'organization' => [
-        'name' => env('SEO_ORGANIZATION_NAME', 'Natural Gem'),
+        'name' => env('SEO_ORGANIZATION_NAME', 'Natural Gem Store'),
         'address_line' => env('SEO_ADDRESS_LINE', 'Toronto'),
         'city' => env('SEO_CITY', 'Toronto'),
         'province' => env('SEO_PROVINCE', 'Ontario'),

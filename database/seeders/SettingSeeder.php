@@ -10,7 +10,7 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         $defaults = [
-            'site_name' => 'Natural Gem',
+            'site_name' => 'Natural Gem Store',
             'logo_path' => '/images/natural-gem-logo.svg',
             'contact_phone' => '+1 (647) 555-0199',
             'contact_email' => 'hello@naturalgem.com',

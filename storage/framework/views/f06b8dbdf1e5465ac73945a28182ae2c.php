@@ -9,14 +9,14 @@
 <?php $__env->startSection('content'); ?>
 <?php if (isset($component)) { $__componentOriginal04f02f1e0f152287a127192de01fe241 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal04f02f1e0f152287a127192de01fe241 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.hero','data' => ['title' => 'Certified Natural Gemstones With Transparent Sourcing','subtitle' => 'Natural Gem curates certified stones with full treatment disclosure, ethical sourcing standards, and Canada-first support.','image' => ''.e($heroImage).'','imageAlt' => 'Certified emerald gemstone','cta' => ['label' => 'Shop Gemstones', 'url' => route('gemstones')]]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.hero','data' => ['title' => 'Certified Natural Gemstones With Transparent Sourcing','subtitle' => 'Natural Gem Store curates certified stones with full treatment disclosure, ethical sourcing standards, and Canada-first support.','image' => ''.e($heroImage).'','imageAlt' => 'Certified emerald gemstone','cta' => ['label' => 'Shop Gemstones', 'url' => route('gemstones')]]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('hero'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['title' => 'Certified Natural Gemstones With Transparent Sourcing','subtitle' => 'Natural Gem curates certified stones with full treatment disclosure, ethical sourcing standards, and Canada-first support.','image' => ''.e($heroImage).'','imageAlt' => 'Certified emerald gemstone','cta' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['label' => 'Shop Gemstones', 'url' => route('gemstones')])]); ?>
+<?php $component->withAttributes(['title' => 'Certified Natural Gemstones With Transparent Sourcing','subtitle' => 'Natural Gem Store curates certified stones with full treatment disclosure, ethical sourcing standards, and Canada-first support.','image' => ''.e($heroImage).'','imageAlt' => 'Certified emerald gemstone','cta' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['label' => 'Shop Gemstones', 'url' => route('gemstones')])]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal04f02f1e0f152287a127192de01fe241)): ?>
@@ -284,7 +284,7 @@
 <section class="max-w-6xl mx-auto px-4 py-12">
     <div class="bg-white rounded-3xl p-8 shadow-lux border border-platinum">
         <h3 class="font-display text-2xl text-midnight-900">Compliance & Disclaimer</h3>
-        <p class="text-midnight-600 mt-2">Natural Gem provides certified gemstones and educational resources. Any cultural or traditional gemstone symbolism is offered for personal interest only and does not imply medical, legal, financial, or personal outcomes.</p>
+        <p class="text-midnight-600 mt-2">Natural Gem Store provides certified gemstones and educational resources. Any cultural or traditional gemstone symbolism is offered for personal interest only and does not imply medical, legal, financial, or personal outcomes.</p>
         <p class="mt-3 text-midnight-500 text-sm">No guarantees or outcomes are implied. Always consult licensed professionals for medical, legal, or financial matters.</p>
     </div>
 </section>

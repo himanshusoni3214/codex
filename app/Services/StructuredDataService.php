@@ -16,34 +16,19 @@ class StructuredDataService
     {
         $settings = $context['settings'] ?? [];
         $breadcrumbs = $context['breadcrumbs'] ?? [];
-        $faqItems = $context['faqItems'] ?? [];
+        $faqItems = $context['faqItems'] ?? ($context['faqs'] ?? []);
         $product = $context['gemstone'] ?? ($context['product'] ?? null);
 
-        $schemas = [
-            $this->organization($settings),
-            $this->website($settings),
+        return [
+            'schemaOrganization' => $this->organization($settings),
+            'schemaWebsite' => $this->website($settings),
+            'schemaLocalBusiness' => $this->shouldIncludeLocalBusiness($context)
+                ? $this->localBusiness($settings)
+                : null,
+            'schemaBreadcrumbList' => $breadcrumbs !== [] ? $this->breadcrumbList($breadcrumbs) : null,
+            'schemaProduct' => $product instanceof Product ? $this->product($product) : null,
+            'schemaFaqPage' => $faqItems !== [] ? $this->faqPage($faqItems) : null,
         ];
-
-        if ($this->shouldIncludeLocalBusiness($context)) {
-            $schemas[] = $this->localBusiness($settings);
-        }
-
-        if ($breadcrumbs !== []) {
-            $schemas[] = $this->breadcrumbs($breadcrumbs);
-        }
-
-        if ($product instanceof Product) {
-            $schemas[] = $this->product($product);
-        }
-
-        if ($faqItems !== []) {
-            $faqSchema = $this->faq($faqItems);
-            if ($faqSchema !== null) {
-                $schemas[] = $faqSchema;
-            }
-        }
-
-        return array_values(array_filter($schemas));
     }
 
     public function organization(array $settings = []): array
@@ -110,22 +95,23 @@ class StructuredDataService
         ];
     }
 
-    public function breadcrumbs(array $crumbs): ?array
+    public function breadcrumbList(array $crumbs): ?array
     {
         $itemList = collect($crumbs)
-            ->filter(fn ($crumb) => ! empty($crumb['label']))
+            ->filter(fn ($crumb) => ! empty($crumb['label']) || ! empty($crumb['name']))
             ->values()
             ->map(function ($crumb, int $index) {
                 $absoluteUrl = $this->seoUrlService->forceSiteHost(
                     $crumb['url'] ?? $this->seoUrlService->current(request())
                 );
+                $name = $crumb['name'] ?? $crumb['label'] ?? '';
 
                 return [
                     '@type' => 'ListItem',
                     'position' => $index + 1,
                     'item' => [
                         '@id' => $absoluteUrl,
-                        'name' => $crumb['label'],
+                        'name' => $name,
                     ],
                 ];
             })
@@ -146,17 +132,24 @@ class StructuredDataService
     {
         $typeSlug = $product->primary_type_slug;
         $price = $this->productPrice($product);
+        $category = $product->gem_type ?: optional($product->primary_gemstone_type)->name ?: 'Gemstone';
+        $description = Str::limit(
+            trim(strip_tags((string) ($product->short_description ?: $product->description ?: $product->title))),
+            300,
+            ''
+        );
 
         $schema = [
             '@context' => 'https://schema.org',
             '@type' => 'Product',
             'name' => $product->title,
             'image' => [$this->productImage($product)],
-            'description' => trim(strip_tags((string) ($product->short_description ?: $product->description ?: $product->title))),
+            'description' => $description,
             'sku' => (string) $product->sku,
+            'category' => $category,
             'brand' => [
                 '@type' => 'Brand',
-                'name' => 'Natural Gem',
+                'name' => 'Natural Gem Store',
             ],
             'offers' => [
                 '@type' => 'Offer',
@@ -166,6 +159,7 @@ class StructuredDataService
                     ? 'https://schema.org/InStock'
                     : 'https://schema.org/OutOfStock',
                 'url' => $this->seoUrlService->absolute($product->detailPath($typeSlug)),
+                'itemCondition' => 'https://schema.org/NewCondition',
             ],
         ];
 
@@ -199,7 +193,7 @@ class StructuredDataService
         return $schema;
     }
 
-    public function faq(array $qaPairs): ?array
+    public function faqPage(array $qaPairs): ?array
     {
         $mainEntity = collect($qaPairs)
             ->filter(fn ($item) => ! empty($item['question']) && ! empty($item['answer']))
@@ -227,6 +221,22 @@ class StructuredDataService
         ];
     }
 
+    /**
+     * Backward-compatible alias.
+     */
+    public function breadcrumbs(array $crumbs): ?array
+    {
+        return $this->breadcrumbList($crumbs);
+    }
+
+    /**
+     * Backward-compatible alias.
+     */
+    public function faq(array $qaPairs): ?array
+    {
+        return $this->faqPage($qaPairs);
+    }
+
     private function shouldIncludeLocalBusiness(array $context): bool
     {
         if (($context['includeLocalBusiness'] ?? false) === true) {
@@ -234,16 +244,12 @@ class StructuredDataService
         }
 
         $routeName = request()->route()?->getName();
-        if (! is_string($routeName)) {
-            return false;
-        }
-
-        return $routeName === 'contact' || Str::startsWith($routeName, 'local.');
+        return $routeName === 'contact' || $routeName === 'local.toronto';
     }
 
     private function siteName(array $settings): string
     {
-        return (string) ($settings['site_name'] ?? config('seo.site_name', 'Natural Gem'));
+        return (string) ($settings['site_name'] ?? config('seo.site_name', 'Natural Gem Store'));
     }
 
     private function logoUrl(array $settings): string
@@ -285,11 +291,13 @@ class StructuredDataService
             return (float) $product->price_cad;
         }
 
-        if ($product->display_rate_per_carat !== null && $product->weight_per_piece !== null) {
-            return round((float) $product->display_rate_per_carat * (float) $product->weight_per_piece, 2);
+        if ($product->display_rate_per_carat !== null) {
+            $weight = $product->weight_per_piece ?? $product->carat ?? null;
+            if ($weight !== null) {
+                return round((float) $product->display_rate_per_carat * (float) $weight, 2);
+            }
         }
 
         return 0.0;
     }
 }
-

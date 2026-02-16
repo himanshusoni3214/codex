@@ -11,11 +11,11 @@ final class LocalBusinessSchema
     ) {
     }
 
-    public function build(array $settings = []): array
+    public function build(array $settings = [], ?string $serviceArea = null): array
     {
         $orgConfig = config('seo.organization', []);
 
-        $siteName = (string) ($settings['site_name'] ?? config('seo.site_name', 'Natural Gem'));
+        $siteName = (string) ($settings['site_name'] ?? config('seo.site_name', 'Natural Gem Store'));
         $phone = (string) ($settings['contact_phone'] ?? ($orgConfig['phone'] ?? '+1 (647) 555-0199'));
         $email = (string) ($settings['contact_email'] ?? ($orgConfig['email'] ?? 'hello@naturalgem.com'));
         $contactAddress = (string) ($settings['contact_address'] ?? ($orgConfig['address_line'] ?? 'Toronto, Ontario, Canada'));
@@ -46,8 +46,12 @@ final class LocalBusinessSchema
                 'postalCode' => $orgConfig['postal_code'] ?? null,
                 'addressCountry' => $orgConfig['country'] ?? 'CA',
             ]),
-            'areaServed' => 'CA',
+            'areaServed' => $serviceArea
+                ? [
+                    '@type' => 'AdministrativeArea',
+                    'name' => $serviceArea,
+                ]
+                : 'CA',
         ];
     }
 }
-

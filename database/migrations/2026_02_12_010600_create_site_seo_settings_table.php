@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('site_seo_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('organization_name')->default('Natural Gem');
+            $table->string('organization_name')->default('Natural Gem Store');
             $table->string('site_url')->default('https://naturalgem.com');
             $table->string('logo_url')->nullable();
             $table->json('same_as')->nullable();

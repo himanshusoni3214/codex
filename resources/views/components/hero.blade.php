@@ -16,7 +16,7 @@
     <div class="absolute inset-0 bg-subtle-grid opacity-50"></div>
     <div class="max-w-6xl mx-auto px-4 py-16 lg:py-24 relative z-10 grid lg:grid-cols-2 gap-10 items-center">
         <div>
-            <p class="text-sm uppercase tracking-[0.35em] text-emerald-700 font-semibold">Natural Gem</p>
+            <p class="text-sm uppercase tracking-[0.35em] text-emerald-700 font-semibold">Natural Gem Store</p>
             <h1 class="font-display text-4xl lg:text-5xl text-midnight-900 mt-3 leading-tight">{{ $title }}</h1>
             @if($subtitle)
                 <p class="text-lg text-midnight-700 mt-4 leading-relaxed">{{ $subtitle }}</p>

@@ -200,11 +200,16 @@ class SeoSiloSeeder extends Seeder
 
         $this->seedEducationPages();
         $this->seedLocalPages();
+        $this->seedAstrologyPages();
+        $this->seedCertificationPages();
+        $this->seedEngagementPages();
+        $this->seedGtaPages();
+        $this->seedBlogPages();
 
         SiteSeoSetting::updateOrCreate(
             ['id' => 1],
             [
-                'organization_name' => 'Natural Gem',
+                'organization_name' => 'Natural Gem Store',
                 'site_url' => rtrim(config('app.url', 'https://naturalgem.com'), '/'),
                 'logo_url' => '/images/natural-gem-logo.svg',
                 'same_as' => [
@@ -218,7 +223,7 @@ class SeoSiloSeeder extends Seeder
                 'province' => 'Ontario',
                 'postal_code' => null,
                 'country' => 'CA',
-                'default_meta_title' => 'Natural Gem Canada',
+                'default_meta_title' => 'Natural Gem Store Canada',
                 'default_meta_description' => 'Certified natural gemstones in Canada with transparent pricing and disclosure.',
                 'default_og_image' => '/images/natural-gem-logo.svg',
             ]
@@ -236,7 +241,7 @@ class SeoSiloSeeder extends Seeder
                 'hero_subtitle' => 'A practical framework for CAD pricing, tax expectations, and certification checks.',
                 'excerpt' => 'Use this guide to evaluate gemstone quality, pricing transparency, and disclosure standards in Canada.',
                 'content' => '<p>Canadian buyers should prioritize transparent CAD pricing, clear GST/HST handling, and report-backed inventory.</p><p>Before purchase, verify treatment status, return terms, and report references.</p>',
-                'meta_title' => 'Buying Gemstones in Canada | Natural Gem Education',
+                'meta_title' => 'Buying Gemstones in Canada | Natural Gem Store Education',
                 'meta_description' => 'Learn how to evaluate gemstone quality, pricing, and disclosures when buying in Canada.',
                 'status' => 'published',
                 'is_indexable' => true,
@@ -254,7 +259,7 @@ class SeoSiloSeeder extends Seeder
                 'hero_subtitle' => 'Understand report context and when each lab is used in the market.',
                 'excerpt' => 'Compare two well-known labs and what their reports mean for practical buying decisions.',
                 'content' => '<p>Both GIA and IGI reports can support transparent buying. Focus on report details, consistency, and listing alignment.</p>',
-                'meta_title' => 'GIA vs IGI | Natural Gem Education',
+                'meta_title' => 'GIA vs IGI | Natural Gem Store Education',
                 'meta_description' => 'Compare GIA and IGI report context for Canadian gemstone buying decisions.',
                 'status' => 'published',
                 'is_indexable' => true,
@@ -272,7 +277,7 @@ class SeoSiloSeeder extends Seeder
                 'hero_subtitle' => 'What certification confirms, and what buyers should still verify independently.',
                 'excerpt' => 'Understand certificate scope, report numbers, and practical verification steps.',
                 'content' => '<p>Certification reports describe measurable gemstone attributes. They should be reviewed together with listing disclosures and seller policy details.</p>',
-                'meta_title' => 'Gemstone Certification Canada | Natural Gem Education',
+                'meta_title' => 'Gemstone Certification Canada | Natural Gem Store Education',
                 'meta_description' => 'Understand gemstone certificates, lab reports, and verification steps for Canadian buyers.',
                 'status' => 'published',
                 'is_indexable' => true,
@@ -299,8 +304,8 @@ class SeoSiloSeeder extends Seeder
                 'hero_title' => 'Toronto Gemstone Store',
                 'hero_subtitle' => 'Certified natural gemstone inventory for Toronto and GTA buyers.',
                 'excerpt' => 'Toronto-focused gemstone buying guidance with transparent CAD pricing and disclosures.',
-                'content' => '<p>Natural Gem supports Toronto clients with report-first inventory, CAD pricing transparency, and clear disclosure standards.</p>',
-                'meta_title' => 'Toronto Gemstone Store | Natural Gem Canada',
+                'content' => '<p>Natural Gem Store supports Toronto clients with report-first inventory, CAD pricing transparency, and clear disclosure standards.</p>',
+                'meta_title' => 'Toronto Gemstone Store | Natural Gem Store Canada',
                 'meta_description' => 'Toronto gemstone inventory with certification-first listings and transparent buying guidance.',
                 'status' => 'published',
                 'is_indexable' => true,
@@ -316,12 +321,353 @@ class SeoSiloSeeder extends Seeder
                 'hero_subtitle' => 'GST/HST-aware buying guidance for Ontario customers.',
                 'excerpt' => 'Ontario guidance covering tax treatment, disclosure expectations, and shipping transparency.',
                 'content' => '<p>Ontario orders are subject to applicable HST rules. Before purchase, verify certificate references and treatment disclosures for each item.</p><p>No guarantees or outcomes are implied.</p>',
-                'meta_title' => 'Ontario Gemstone Guide | Natural Gem Canada',
+                'meta_title' => 'Ontario Gemstone Guide | Natural Gem Store Canada',
                 'meta_description' => 'Ontario-focused gemstone buying guidance including HST and disclosure expectations.',
                 'status' => 'published',
                 'is_indexable' => true,
             ]
         );
+    }
+
+    private function seedAstrologyPages(): void
+    {
+        Page::updateOrCreate(
+            ['slug' => 'astrology'],
+            [
+                'section' => 'astrology_hub',
+                'title' => 'Astrology Gemstone Guidance',
+                'hero_title' => 'Astrology Gemstone Guidance in Toronto & GTA',
+                'hero_subtitle' => 'Belief-based pages for clients who want traditional gemstone context while keeping certification, disclosure, and product quality first.',
+                'excerpt' => 'Explore traditional stone pages with compliance-safe language, verification tips, and consultation pathways.',
+                'content' => '<p>This hub organizes traditional stone pages for Toronto and GTA clients. Each guide is educational and belief-based. Product purchases remain documentation-first, with treatment disclosures and report references where available.</p>',
+                'meta_title' => 'Astrology Gemstone Guidance Toronto | Natural Gem Store',
+                'meta_description' => 'Explore belief-based astrology gemstone pages in Toronto with disclosure-first guidance and certification-focused buying links.',
+                'status' => 'published',
+                'is_indexable' => true,
+            ]
+        );
+
+        $pages = [
+            [
+                'slug' => 'blue-sapphire-neelam',
+                'title' => 'Blue Sapphire (Neelam) Guide for Toronto Buyers',
+                'type_slug' => 'sapphire',
+            ],
+            [
+                'slug' => 'yellow-sapphire-pukhraj',
+                'title' => 'Yellow Sapphire (Pukhraj) Guide for GTA',
+                'type_slug' => 'sapphire',
+            ],
+            [
+                'slug' => 'emerald-panna',
+                'title' => 'Emerald (Panna) Buying Guide in Toronto',
+                'type_slug' => 'emerald',
+            ],
+            [
+                'slug' => 'ruby-manik',
+                'title' => 'Ruby (Manik) Traditional Guide in Canada',
+                'type_slug' => 'ruby',
+            ],
+            [
+                'slug' => 'pearl-moti',
+                'title' => 'Pearl (Moti) Traditional Guidance',
+                'type_slug' => 'pearl',
+            ],
+            [
+                'slug' => 'hessonite-gomed',
+                'title' => 'Hessonite (Gomed) Practical Guide',
+                'type_slug' => 'hessonite',
+            ],
+            [
+                'slug' => 'cats-eye-lehsunia',
+                'title' => "Cat's Eye (Lehsunia) Guide for GTA Clients",
+                'type_slug' => 'cats-eye',
+            ],
+        ];
+
+        foreach ($pages as $item) {
+            $stoneLabel = Str::title(str_replace('-', ' ', $item['slug']));
+            $content = <<<HTML
+<h2>Who Traditionally Chooses {$stoneLabel}</h2>
+<p>In many belief systems, {$stoneLabel} is traditionally selected after reviewing birth-chart context with an experienced advisor. This is a cultural practice, not a guaranteed outcome service. Buyers in Toronto and the GTA typically compare documentation quality first, then decide whether traditional symbolism matters for them personally.</p>
+<h2>Who May Choose Another Stone First</h2>
+<p>Clients focused on color, budget, or jewelry design often shortlist stones by physical quality and report details before considering tradition. If a stone's treatment status, certification path, or budget fit is unclear, it is better to pause and review alternatives rather than rushing into a purchase.</p>
+<h2>Benefits and Cautions (Belief-Based)</h2>
+<p>This page discusses symbolic associations used in cultural practice. These associations are belief-based and educational. No medical, legal, financial, or personal results are implied. Always evaluate visible quality factors, return terms, and documentation before checkout.</p>
+<h2>Treatments &amp; Disclosure</h2>
+<p>Treatment status (for example heated, fracture-filled, or unknown) must be disclosed when known. Ask for written disclosure and compare that information with the listing and report details.</p>
+<h2>Certification &amp; Verification Tips</h2>
+<p>Prefer stones with recognized report references (GIA, IGI, or other credible labs). Match report number, weight, dimensions, and identifying notes to the exact item you are buying.</p>
+<h2>Price Guidance in Toronto and GTA</h2>
+<p>Pricing varies by color quality, clarity, origin profile, treatment status, and certification coverage. Use per-carat benchmarks only as a starting point and confirm final CAD totals, taxes, and insured shipping before placing an order.</p>
+HTML;
+
+            Page::updateOrCreate(
+                ['slug' => $item['slug']],
+                [
+                    'section' => 'astrology',
+                    'title' => $item['title'],
+                    'hero_title' => $item['title'],
+                    'hero_subtitle' => 'Traditional, belief-based gemstone guidance with transparent buying checks for Toronto and GTA clients.',
+                    'excerpt' => "Understand {$stoneLabel} from a traditional perspective with certification, disclosure, and CAD pricing context.",
+                    'content' => $content,
+                    'meta_title' => "{$item['title']} | Natural Gem Store",
+                    'meta_description' => "Explore {$stoneLabel} guidance in Toronto with disclosure-first buying tips, report verification steps, and consultation options.",
+                    'status' => 'published',
+                    'is_indexable' => true,
+                    'faq_items' => $this->astrologyFaq($stoneLabel),
+                    'related_links' => [
+                        ['label' => 'Book Traditional Consultation', 'url' => '/consultation'],
+                        ['label' => 'Submit Purchase Request', 'url' => '/purchase-request'],
+                        ['label' => 'Browse Matching Gemstone Inventory', 'url' => '/gemstones/' . $item['type_slug']],
+                        ['label' => 'Certification Library', 'url' => '/certification'],
+                        ['label' => 'GIA vs IGI Guide', 'url' => '/education/gia-vs-igi'],
+                    ],
+                ]
+            );
+        }
+    }
+
+    private function seedCertificationPages(): void
+    {
+        Page::updateOrCreate(
+            ['slug' => 'certification'],
+            [
+                'section' => 'certification_hub',
+                'title' => 'Gemstone Certification Library',
+                'hero_title' => 'Gemstone Certification Library',
+                'hero_subtitle' => 'Practical report-reading and verification guides for Canadian gemstone buyers.',
+                'excerpt' => 'Compare labs, verify report details, and understand treatment disclosure terminology before purchase.',
+                'content' => '<p>This library centralizes verification workflows for gemstone certificates. Use these guides before placing a purchase request or scheduling a consultation.</p>',
+                'meta_title' => 'Gemstone Certification Library | Natural Gem Store',
+                'meta_description' => 'Read gemstone certification guides for Canada: verification steps, report interpretation, and treatment disclosure checks.',
+                'status' => 'published',
+                'is_indexable' => true,
+            ]
+        );
+
+        $pages = [
+            'verify-gemstone-certificate' => 'How to Verify a Gemstone Certificate',
+            'how-to-read-gemstone-report' => 'How to Read a Gemstone Report',
+            'gia-vs-igi-vs-gra' => 'GIA vs IGI vs GRA: Practical Differences',
+            'treatments-disclosure-guide' => 'Gemstone Treatments Disclosure Guide',
+            'synthetic-vs-natural-vs-treated' => 'Synthetic vs Natural vs Treated Gemstones',
+        ];
+
+        foreach ($pages as $slug => $title) {
+            Page::updateOrCreate(
+                ['slug' => $slug],
+                [
+                    'section' => 'certification',
+                    'title' => $title,
+                    'hero_title' => $title,
+                    'hero_subtitle' => 'A clear checklist for Canadian buyers evaluating documentation and disclosure quality.',
+                    'excerpt' => 'Understand lab report sections, verification methods, and practical buying safeguards.',
+                    'content' => <<<HTML
+<h2>Why this topic matters</h2>
+<p>{$title} is a frequent decision point for buyers comparing gemstone listings online. Documentation quality can materially affect confidence and resale clarity.</p>
+<h2>Canadian buying workflow</h2>
+<p>Confirm the report number, verify it on the issuing lab portal where available, and compare values against the exact stone listing. Keep records of CAD invoices and disclosure notes.</p>
+<h2>Treatment and disclosure checks</h2>
+<p>When treatment is known, the listing should disclose it directly. If treatment is unknown, that status should also be explicit before purchase.</p>
+<h2>Practical safeguards</h2>
+<p>Use written communication, request high-resolution media, and avoid outcome-based claims. Focus on physical attributes and documentation consistency.</p>
+HTML,
+                    'meta_title' => "{$title} | Natural Gem Store Certification",
+                    'meta_description' => "Read {$title} with practical verification steps and disclosure guidance for Canadian gemstone buyers.",
+                    'status' => 'published',
+                    'is_indexable' => true,
+                    'faq_items' => $this->defaultFaq(Str::lower($title)),
+                    'related_links' => [
+                        ['label' => 'Astrology Stone Guides', 'url' => '/astrology'],
+                        ['label' => 'Browse Gemstones', 'url' => '/gemstones'],
+                        ['label' => 'Book Consultation', 'url' => '/consultation'],
+                    ],
+                ]
+            );
+        }
+    }
+
+    private function seedEngagementPages(): void
+    {
+        Page::updateOrCreate(
+            ['slug' => 'engagement-rings'],
+            [
+                'section' => 'engagement_hub',
+                'title' => 'Colored Gemstone Engagement Rings',
+                'hero_title' => 'Colored Gemstone Engagement Rings in Toronto',
+                'hero_subtitle' => 'Appointment-led custom ring design with certification-backed gemstone sourcing.',
+                'excerpt' => 'Plan custom sapphire, ruby, or emerald engagement rings with transparent timelines and CAD pricing support.',
+                'content' => '<p>Our engagement ring hub focuses on process clarity: stone selection, setting design, manufacturing timeline, and post-delivery care in Canada.</p>',
+                'meta_title' => 'Colored Gemstone Engagement Rings Toronto | Natural Gem Store',
+                'meta_description' => 'Explore custom colored gemstone engagement ring options in Toronto and GTA with transparent process and certified stones.',
+                'status' => 'published',
+                'is_indexable' => true,
+            ]
+        );
+
+        $pages = [
+            'sapphire-engagement-ring-toronto' => 'Sapphire Engagement Ring Toronto',
+            'custom-gemstone-ring-gta' => 'Custom Gemstone Ring Design in GTA',
+            'ethical-colored-stone-engagement-rings-canada' => 'Ethical Colored Stone Engagement Rings in Canada',
+        ];
+
+        foreach ($pages as $slug => $title) {
+            Page::updateOrCreate(
+                ['slug' => $slug],
+                [
+                    'section' => 'engagement',
+                    'title' => $title,
+                    'hero_title' => $title,
+                    'hero_subtitle' => 'Design consultations for Toronto and GTA clients with CAD estimates and disclosure-first sourcing.',
+                    'excerpt' => 'Learn timeline, durability, warranty care, and appointment steps for custom gemstone engagement rings.',
+                    'content' => <<<HTML
+<h2>Design and sourcing process timeline</h2>
+<p>Most custom projects begin with a planning call, then gemstone shortlist, then setting design approval. Timeline depends on gemstone availability, setting complexity, and finishing requirements.</p>
+<h2>Durability and daily wear guidance</h2>
+<p>Durability varies by gemstone species and cut. We discuss practical wear patterns, protective setting choices, and long-term care expectations before finalizing.</p>
+<h2>Warranty and care</h2>
+<p>After delivery, clients receive care recommendations and inspection checkpoints for prongs, metal wear, and stone security. Service timelines are explained before purchase.</p>
+<h2>Canada service area</h2>
+<p>Toronto-based appointments are available, with broader GTA and Ontario support for consultation and insured shipping where appropriate.</p>
+HTML,
+                    'meta_title' => "{$title} | Natural Gem Store",
+                    'meta_description' => "Plan {$title} with transparent process, durability guidance, and certification-backed gemstone sourcing.",
+                    'status' => 'published',
+                    'is_indexable' => true,
+                    'faq_items' => $this->defaultFaq(Str::lower($title)),
+                    'related_links' => [
+                        ['label' => 'Browse Sapphire Inventory', 'url' => '/gemstones/sapphire'],
+                        ['label' => 'Browse Ruby Inventory', 'url' => '/gemstones/ruby'],
+                        ['label' => 'Book Consultation', 'url' => '/consultation'],
+                        ['label' => 'Purchase Request', 'url' => '/purchase-request'],
+                    ],
+                ]
+            );
+        }
+    }
+
+    private function seedGtaPages(): void
+    {
+        $pages = [
+            'scarborough-gemstone-store' => 'Scarborough Gemstone Store',
+            'brampton-gemstone-store' => 'Brampton Gemstone Store',
+            'mississauga-gemstone-store' => 'Mississauga Gemstone Store',
+            'north-york-gemstone-store' => 'North York Gemstone Store',
+            'markham-gemstone-store' => 'Markham Gemstone Store',
+        ];
+
+        foreach ($pages as $slug => $title) {
+            $city = Str::of($slug)->replace('-gemstone-store', '')->replace('-', ' ')->title()->toString();
+
+            Page::updateOrCreate(
+                ['slug' => $slug],
+                [
+                    'section' => 'gta',
+                    'title' => $title,
+                    'hero_title' => $title,
+                    'hero_subtitle' => "Certified gemstone support for {$city} clients with Toronto appointment coordination.",
+                    'excerpt' => "{$city}-focused gemstone buying support with transparent CAD pricing, disclosure checks, and consultation access.",
+                    'content' => <<<HTML
+<h2>{$city} buyers: how we support your purchase</h2>
+<p>Clients from {$city} can shortlist stones online, request documentation checks, and schedule Toronto-area appointments before final decision-making.</p>
+<h2>Pickup and appointment details</h2>
+<p>Consultation and pickup timelines are confirmed case by case. For shipped orders, insured courier options and GST/HST treatment are explained in writing.</p>
+<h2>Disclosure and certification policy</h2>
+<p>Known treatments are disclosed in listing details. Certificate references and report verification guidance are provided where available.</p>
+HTML,
+                    'meta_title' => "{$title} | Natural Gem Store Canada",
+                    'meta_description' => "Find certified gemstone buying support for {$city} with Toronto/GTA consultation options and transparent disclosures.",
+                    'status' => 'published',
+                    'is_indexable' => true,
+                    'related_links' => [
+                        ['label' => 'Book Consultation', 'url' => '/consultation'],
+                        ['label' => 'Purchase Request', 'url' => '/purchase-request'],
+                        ['label' => 'Browse Gemstone Inventory', 'url' => '/gemstones'],
+                    ],
+                ]
+            );
+        }
+    }
+
+    private function seedBlogPages(): void
+    {
+        $posts = [
+            'how-to-evaluate-sapphire-color-in-canada',
+            'ruby-clarity-buying-framework-for-beginners',
+            'emerald-inclusions-what-is-normal',
+            'how-gst-hst-affects-gemstone-purchases',
+            'reading-carat-cut-clarity-with-confidence',
+            'natural-vs-treated-quick-checklist',
+            'how-to-compare-two-gemstones-fairly',
+            'questions-to-ask-before-buying-a-gemstone-online',
+            'toronto-gemstone-consultation-what-to-expect',
+            'how-to-store-and-care-for-loose-gemstones',
+        ];
+
+        foreach ($posts as $slug) {
+            $title = Str::of(str_replace('-', ' ', $slug))->title()->toString();
+
+            Page::updateOrCreate(
+                ['slug' => $slug],
+                [
+                    'section' => 'blog',
+                    'title' => $title,
+                    'hero_title' => $title,
+                    'hero_subtitle' => 'Editorial draft for Canadian gemstone buyers.',
+                    'excerpt' => 'Draft article scaffold covering practical buying, documentation, and disclosure topics.',
+                    'content' => <<<HTML
+<h2>Overview</h2>
+<p>This placeholder draft introduces the topic and highlights why documentation-first buying matters for Canadian gemstone clients.</p>
+<h2>Key checklist</h2>
+<p>Future version will include a practical step-by-step checklist, common errors to avoid, and references to certification resources.</p>
+<h2>Next steps</h2>
+<p>For now, compare this article with the education hub and product detail pages for current guidance.</p>
+HTML,
+                    'meta_title' => "{$title} | Natural Gem Store Blog",
+                    'meta_description' => "Read {$title} on Natural Gem Store's Canada-focused gemstone education blog.",
+                    'status' => 'published',
+                    'is_indexable' => true,
+                    'related_links' => [
+                        ['label' => 'Gemstone Education Hub', 'url' => '/education'],
+                        ['label' => 'Certification Library', 'url' => '/certification'],
+                        ['label' => 'Browse Gemstone Inventory', 'url' => '/gemstones'],
+                    ],
+                ]
+            );
+        }
+    }
+
+    private function astrologyFaq(string $stoneLabel): array
+    {
+        $stoneLower = Str::lower($stoneLabel);
+
+        return [
+            [
+                'question' => "Who traditionally wears {$stoneLower}?",
+                'answer' => 'In traditional systems, this is usually decided after reviewing birth details with an experienced practitioner. It is a belief-based choice.',
+            ],
+            [
+                'question' => "Who may avoid {$stoneLower} initially?",
+                'answer' => 'Some clients postpone selection until certification, treatment disclosure, and budget fit are fully clear.',
+            ],
+            [
+                'question' => "Are benefits of {$stoneLower} guaranteed?",
+                'answer' => 'No. Symbolic associations are cultural and educational only. No outcomes are promised.',
+            ],
+            [
+                'question' => 'How can I verify certification in Canada?',
+                'answer' => 'Check certificate number, issuing lab, and matching stone details before purchase.',
+            ],
+            [
+                'question' => 'Do you disclose treatments?',
+                'answer' => 'Yes. Any known treatment information is disclosed in listing or documentation notes.',
+            ],
+            [
+                'question' => 'Can I book consultation before purchase?',
+                'answer' => 'Yes. Consultation and purchase request are separate workflows so you can decide at your own pace.',
+            ],
+        ];
     }
 
     private function defaultFaq(string $context): array

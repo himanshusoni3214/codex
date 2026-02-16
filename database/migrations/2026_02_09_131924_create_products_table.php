@@ -36,7 +36,9 @@ return new class extends Migration
             $table->string('cut')->nullable();
             $table->string('shape')->nullable();
             $table->text('symbolic_meaning')->nullable();
-            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
+            // NOTE: Categories are created in a later migration. We add the FK in a follow-up migration
+            // to keep MySQL installs from failing on fresh migrations.
+            $table->foreignId('category_id')->nullable()->index();
             $table->boolean('is_featured')->default(false);
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();

@@ -1,6 +1,7 @@
 <?php
     $primaryType = $type ?? $gemstone->primary_gemstone_type;
     $primaryOrigin = $origin ?? $gemstone->primary_origin;
+    $faqs = $faqs ?? ($faqItems ?? []);
     $typeSlug = $primaryType?->slug ?: (\Illuminate\Support\Str::slug($gemstone->gem_type ?? ''));
     $typeLabel = $primaryType?->name ?: ($gemstone->gem_type ?: 'Gemstone');
 
@@ -10,10 +11,31 @@
     $seoAlt = $caratLabel
         ? "{$caratLabel} Ct Natural {$typeLabel} - Certified Gemstone in Canada"
         : "Natural {$typeLabel} - Certified Gemstone in Canada";
+
+    // Keep schema description aligned with the visible "Product Overview" section below.
+    $typeLabelLower = \Illuminate\Support\Str::lower($typeLabel);
+    $overviewParagraphs = [
+        "This {$typeLabelLower} listing is structured for buyers who prioritize measurable gemstone quality before any stylistic preference. The listing records visible factors such as carat, color, cut style, clarity notes, and treatment disclosure in one place, so you can compare options on objective criteria. Rather than relying on broad claims, the page presents what is physically documented for this exact stone and what still requires direct lab verification. That approach keeps decision-making transparent for Canadian buyers evaluating premium gemstones online.",
+        ($caratLabel ? "At {$caratLabel} ct," : 'For this item,') . " weight and rate-per-carat are shown alongside total CAD pricing to make valuation straightforward. Clarity and color are listed as practical buying references, while cut and shape help explain face-up appearance and setting suitability for rings, pendants, or custom commissions. If you are comparing multiple stones in the same budget range, this standardized format helps you assess value quickly without losing detail on certification or disclosure fields.",
+        'Use cases vary by buyer intent: some clients purchase for fine jewelry projects, some for collector inventory, and others for culturally meaningful gifting. In each case, documentation-first purchasing reduces ambiguity. Where a certificate number or lab link is available, it is shown directly. Where details are pending, the listing states that clearly instead of implying certainty. This keeps product representation aligned with both compliance expectations and premium retail standards for gemstone commerce in Canada.',
+        $gemstone->description ?: 'Each gemstone is independently reviewed for visual quality, disclosure status, and listing accuracy before publication.',
+    ];
+    $overviewPlainText = (string) \Illuminate\Support\Str::of(implode(' ', $overviewParagraphs))->squish();
+
+    $productSchema = app(\App\SEO\Schema\ProductSchema::class)->build($gemstone, [
+        'typeSlug' => $typeSlug ?: null,
+        'category' => $typeLabel,
+        'description' => $overviewPlainText,
+        'url' => $canonical ?? null,
+    ]);
 ?>
 
 <?php $__env->startPush('preload'); ?>
     <link rel="preload" as="image" href="<?php echo e($heroImage); ?>">
+<?php $__env->stopPush(); ?>
+
+<?php $__env->startPush('schema'); ?>
+    <?php echo $__env->make('seo.schema.product-jsonld', ['schema' => $productSchema], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -161,24 +183,9 @@
         <section class="bg-white rounded-3xl p-6 border border-platinum shadow-lux">
             <h2 class="font-display text-3xl text-midnight-900">Product Overview</h2>
             <div class="mt-4 space-y-4 text-midnight-600 leading-relaxed">
-                <p>
-                    This <?php echo e(\Illuminate\Support\Str::lower($typeLabel)); ?> listing is structured for buyers who prioritize measurable gemstone quality before any stylistic preference. The listing records visible factors such as carat, color, cut style, clarity notes, and treatment disclosure in one place, so you can compare options on objective criteria. Rather than relying on broad claims, the page presents what is physically documented for this exact stone and what still requires direct lab verification. That approach keeps decision-making transparent for Canadian buyers evaluating premium gemstones online.
-                </p>
-                <p>
-                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($caratLabel): ?>
-                        At <?php echo e($caratLabel); ?> ct,
-                    <?php else: ?>
-                        For this item,
-                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-                    weight and rate-per-carat are shown alongside total CAD pricing to make valuation straightforward. Clarity and color are listed as practical buying references, while cut and shape help explain face-up appearance and setting suitability for rings, pendants, or custom commissions. If you are comparing multiple stones in the same budget range, this standardized format helps you assess value quickly without losing detail on certification or disclosure fields.
-                </p>
-                <p>
-                    Use cases vary by buyer intent: some clients purchase for fine jewelry projects, some for collector inventory, and others for culturally meaningful gifting. In each case, documentation-first purchasing reduces ambiguity. Where a certificate number or lab link is available, it is shown directly. Where details are pending, the listing states that clearly instead of implying certainty. This keeps product representation aligned with both compliance expectations and premium retail standards for gemstone commerce in Canada.
-                </p>
-                <p>
-                    <?php echo e($gemstone->description ?: 'Each gemstone is independently reviewed for visual quality, disclosure status, and listing accuracy before publication.'); ?>
-
-                </p>
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $overviewParagraphs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $paragraph): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <p><?php echo e($paragraph); ?></p>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
             </div>
 
             <div class="mt-6 grid md:grid-cols-2 gap-4 text-sm">
@@ -243,14 +250,14 @@
 
         <?php if (isset($component)) { $__componentOriginal37db2c605c61c279ebc9663bd105edcf = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal37db2c605c61c279ebc9663bd105edcf = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.seo.faq','data' => ['items' => $faqItems ?? [],'title' => 'FAQs']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.seo.faq','data' => ['items' => $faqs,'title' => 'FAQs']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('seo.faq'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['items' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($faqItems ?? []),'title' => 'FAQs']); ?>
+<?php $component->withAttributes(['items' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($faqs),'title' => 'FAQs']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal37db2c605c61c279ebc9663bd105edcf)): ?>

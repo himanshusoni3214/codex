@@ -50,6 +50,10 @@ class SitemapController extends Controller
             ['/about', 'monthly', '0.6'],
             ['/gemstones', 'daily', '0.9'],
             ['/education', 'weekly', '0.8'],
+            ['/astrology', 'weekly', '0.8'],
+            ['/certification', 'weekly', '0.8'],
+            ['/engagement-rings', 'weekly', '0.8'],
+            ['/blog', 'daily', '0.8'],
             ['/education/certification', 'monthly', '0.7'],
             ['/education/gia-vs-igi', 'monthly', '0.7'],
             ['/education/natural-vs-treated', 'monthly', '0.7'],
@@ -93,6 +97,52 @@ class SitemapController extends Controller
             }
 
             $add($this->seoUrlService->absolute('/canada/' . $provinceSlug), $page->updated_at?->toAtomString(), 'monthly', '0.7');
+        }
+
+        $sectionPrefix = [
+            'astrology' => '/astrology',
+            'certification' => '/certification',
+            'engagement' => '/engagement-rings',
+            'gta' => '/gta',
+            'blog' => '/blog',
+        ];
+
+        $dynamicSectionPages = Page::query()
+            ->whereIn('section', array_keys($sectionPrefix))
+            ->when(Schema::hasColumn('pages', 'status'), fn ($q) => $q->where('status', 'published'))
+            ->when(Schema::hasColumn('pages', 'is_indexable'), fn ($q) => $q->where('is_indexable', true))
+            ->get();
+
+        foreach ($dynamicSectionPages as $page) {
+            $prefix = $sectionPrefix[$page->section] ?? null;
+            if (! $prefix) {
+                continue;
+            }
+
+            $changefreq = $page->section === 'blog' ? 'weekly' : 'monthly';
+            $priority = $page->section === 'blog' ? '0.7' : '0.75';
+            $add($this->seoUrlService->absolute($prefix . '/' . $page->slug), $page->updated_at?->toAtomString(), $changefreq, $priority);
+        }
+
+        $hubSectionMap = [
+            'astrology_hub' => '/astrology',
+            'certification_hub' => '/certification',
+            'engagement_hub' => '/engagement-rings',
+        ];
+
+        $hubPages = Page::query()
+            ->whereIn('section', array_keys($hubSectionMap))
+            ->when(Schema::hasColumn('pages', 'status'), fn ($q) => $q->where('status', 'published'))
+            ->when(Schema::hasColumn('pages', 'is_indexable'), fn ($q) => $q->where('is_indexable', true))
+            ->get();
+
+        foreach ($hubPages as $page) {
+            $path = $hubSectionMap[$page->section] ?? null;
+            if (! $path) {
+                continue;
+            }
+
+            $add($this->seoUrlService->absolute($path), $page->updated_at?->toAtomString(), 'weekly', '0.8');
         }
 
         if (app()->environment('production')) {

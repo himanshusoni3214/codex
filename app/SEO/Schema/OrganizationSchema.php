@@ -15,7 +15,7 @@ final class OrganizationSchema
     {
         $orgConfig = config('seo.organization', []);
 
-        $siteName = (string) ($settings['site_name'] ?? config('seo.site_name', 'Natural Gem'));
+        $siteName = (string) ($settings['site_name'] ?? config('seo.site_name', 'Natural Gem Store'));
         $phone = (string) ($settings['contact_phone'] ?? ($orgConfig['phone'] ?? '+1 (647) 555-0199'));
         $email = (string) ($settings['contact_email'] ?? ($orgConfig['email'] ?? 'hello@naturalgem.com'));
 

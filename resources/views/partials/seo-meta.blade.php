@@ -2,7 +2,7 @@
     $seoMeta = $seoMeta ?? [];
 @endphp
 
-<title>{{ $seoMeta['title'] ?? 'Natural Gem Canada' }}</title>
+<title>{{ $seoMeta['title'] ?? 'Natural Gem Store Canada' }}</title>
 <meta name="description" content="{{ $seoMeta['description'] ?? '' }}">
 <meta name="robots" content="{{ $seoMeta['robots'] ?? 'index,follow' }}">
 <link rel="canonical" href="{{ $seoMeta['canonical'] ?? app(\App\Services\SeoUrlService::class)->current(request()) }}">

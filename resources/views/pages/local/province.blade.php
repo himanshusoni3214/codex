@@ -27,6 +27,8 @@
             @foreach($types as $type)
                 <a href="{{ route('gemstones.show', ['slug' => $type->slug]) }}" class="block underline text-midnight-600 hover:text-emerald-700">{{ $type->name }}</a>
             @endforeach
+            <a href="{{ route('consultation') }}" class="block underline text-midnight-600 hover:text-emerald-700">Book Consultation</a>
+            <a href="{{ route('order.create') }}" class="block underline text-midnight-600 hover:text-emerald-700">Purchase Request</a>
         </div>
     </div>
 </section>

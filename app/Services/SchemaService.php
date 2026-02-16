@@ -33,7 +33,7 @@ class SchemaService
 
         $orgConfig = config('seo.organization', []);
         $organizationName = $siteSeo?->organization_name
-            ?: ($settings['site_name'] ?? ($orgConfig['name'] ?? config('seo.site_name', 'Natural Gem')));
+            ?: ($settings['site_name'] ?? ($orgConfig['name'] ?? config('seo.site_name', 'Natural Gem Store')));
         $siteUrl = $this->seoUrlService->siteUrl();
         $logoUrl = $this->seoUrlService->resolveImageReference(
             $siteSeo?->logo_url ?: ($settings['logo_path'] ?? config('seo.default_og_image'))

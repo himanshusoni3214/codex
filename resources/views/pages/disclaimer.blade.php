@@ -5,7 +5,7 @@
     <div class="max-w-6xl mx-auto px-4 py-16">
         <p class="text-sm uppercase tracking-[0.35em] text-emerald-700">Disclaimer</p>
         <h1 class="font-display text-4xl text-midnight-900 mt-3">Important Disclosures</h1>
-        <p class="text-lg text-midnight-600 mt-4 max-w-3xl">Natural Gem is committed to transparent gemstone sourcing and responsible communication.</p>
+        <p class="text-lg text-midnight-600 mt-4 max-w-3xl">Natural Gem Store is committed to transparent gemstone sourcing and responsible communication.</p>
     </div>
 </section>
 
